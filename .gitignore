@@ -2,6 +2,9 @@
 
 # dependencies
 /node_modules
+/Client/dist
+/Client/node_modules
+/Client/.cache
 
 # testing
 /coverage
