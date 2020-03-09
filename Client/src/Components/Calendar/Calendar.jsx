@@ -1,43 +1,61 @@
 import React, { useState } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
-import { v1 as uuidv1 } from 'uuid';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 
 import '../../App.css';
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.css';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
+import Events from '../../Utils/Events';
+
 const localizer = momentLocalizer(moment);
 const DragAndDropCalendar = withDragAndDrop(Calendar);
 
 const MainCalendar = (props) => {
   const [state, setState] = useState({
-    events: [
-      {
-        id: uuidv1(),
-        start: new Date(),
-        end: new Date(moment().add(2, 'days')),
-        title: 'Dr. Appointment'
-      }
-    ]
+    events: Events
   });
 
-  const onEventResize = (type, { event, start, end, allDay }) => {
-    setState((state) => {
-      state.events[0].start = start;
-      state.events[0].end = end;
-      return { events: state.events };
+  const moveEvent = ({ event, start, end, isAllDay: droppedOnAllDaySlot }) => {
+    const { events } = state;
+
+    const idx = events.indexOf(event);
+    let allDay = event.allDay;
+
+    if (!event.allDay && droppedOnAllDaySlot) {
+      allDay = true;
+    } else if (event.allDay && !droppedOnAllDaySlot) {
+      allDay = false;
+    }
+
+    const updatedEvent = { ...event, start, end, allDay };
+
+    const nextEvents = [...events];
+    nextEvents.splice(idx, 1, updatedEvent);
+
+    setState({
+      events: nextEvents
     });
+
+    alert(`${event.title} was dropped onto ${updatedEvent.start}`);
   };
 
-  const onEventDrop = ({ event, start, end, allDay }) => {
-    console.log(start);
-    console.log(end);
-    console.log(event);
-  };
+  const resizeEvent = ({ event, start, end }) => {
+    const { events } = state;
 
-  console.log(state.events[0]);
+    const nextEvents = events.map((existingEvent) => {
+      return existingEvent.id == event.id
+        ? { ...existingEvent, start, end }
+        : existingEvent;
+    });
+
+    setState({
+      events: nextEvents
+    });
+
+    alert(`${event.title} was resized to ${start}-${end}`);
+  };
 
   return (
     <div className='App'>
@@ -46,8 +64,8 @@ const MainCalendar = (props) => {
         defaultView='month'
         events={state.events}
         localizer={localizer}
-        onEventDrop={onEventDrop}
-        onEventResize={onEventResize}
+        onEventDrop={moveEvent}
+        onEventResize={resizeEvent}
         resizable
         style={{ height: '100vh' }}
       />
