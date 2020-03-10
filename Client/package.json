@@ -48,6 +48,7 @@
     "react-dnd": "^10.0.2",
     "react-dnd-html5-backend": "^10.0.2",
     "react-dom": "^16.13.0",
+    "react-icons": "^3.9.0",
     "react-is": "^16.13.0",
     "react-router-dom": "^5.1.2",
     "react-spring": "^8.0.27",
