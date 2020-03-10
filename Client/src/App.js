@@ -6,7 +6,8 @@ import {
   Redirect
 } from 'react-router-dom';
 
-import Calendar from './Components/Calendar/Calendar';
+import Calendar from './Components/Calendar/Calendar.jsx';
+import MainNavigation from './Shared/Components/Navigation/MainNavigation/MainNavigation';
 
 import { Main, GlobalStyle } from './Styles/JS/App.styles';
 
@@ -21,6 +22,7 @@ const App = () => {
 
   return (
     <Router>
+      <MainNavigation />
       <Main>{routes}</Main>
       <GlobalStyle />
     </Router>

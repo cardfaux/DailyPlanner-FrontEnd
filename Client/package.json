@@ -6,8 +6,8 @@
   "scripts": {
     "clear-build-cache": "rm -rf .cache/ dist/",
     "dev": "parcel public/index.html",
-    "format": "prettier --write \"src/**/*.{js,jsx,html}\"",
-    "lint": "eslint \"src/**/*.{js,jsx}\" --quiet"
+    "format": "prettier --write \"src/**/*.{js,jsx}\"",
+    "lint": "eslint \"src/**/*.{js,jsx}\""
   },
   "keywords": [
     "React",
@@ -20,14 +20,22 @@
     "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@babel/preset-env": "^7.8.7",
     "@babel/preset-react": "^7.8.3",
+    "@typescript-eslint/eslint-plugin": "^2.23.0",
+    "@typescript-eslint/parser": "^2.23.0",
     "babel-eslint": "^10.1.0",
-    "cross-env": "^6.0.3",
+    "cross-env": "^7.0.2",
     "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-node": "^4.0.0",
     "eslint-config-prettier": "^6.10.0",
+    "eslint-config-react-app": "^5.2.0",
+    "eslint-plugin-flowtype": "^3.13.0",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.19.0",
-    "eslint-plugin-react-hooks": "^2.5.0",
+    "eslint-plugin-react-hooks": "^1.7.0",
     "parcel-bundler": "^1.12.4",
     "prettier": "^1.19.1",
     "sass": "^1.26.2"
@@ -42,9 +50,12 @@
     "react-dom": "^16.13.0",
     "react-is": "^16.13.0",
     "react-router-dom": "^5.1.2",
+    "react-spring": "^8.0.27",
+    "react-transition-group": "^4.3.0",
     "styled-components": "^5.0.1",
     "uuid": "^7.0.2"
   },
+  "extends": "react-app",
   "browserslist": [
     "last 2 Chrome versions",
     "last 2 ChromeAndroid versions",
