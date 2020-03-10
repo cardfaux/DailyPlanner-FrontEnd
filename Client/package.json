@@ -1,8 +1,8 @@
 {
-  "name": "setup",
+  "name": "dailyplanner",
   "version": "1.0.0",
   "private": true,
-  "description": "React/Parcel",
+  "description": "DailyPlanner",
   "scripts": {
     "clear-build-cache": "rm -rf .cache/ dist/",
     "dev": "parcel public/index.html",
@@ -40,7 +40,9 @@
     "react-dnd": "^10.0.2",
     "react-dnd-html5-backend": "^10.0.2",
     "react-dom": "^16.13.0",
+    "react-is": "^16.13.0",
     "react-router-dom": "^5.1.2",
+    "styled-components": "^5.0.1",
     "uuid": "^7.0.2"
   },
   "browserslist": [
