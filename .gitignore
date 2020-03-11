@@ -6,6 +6,7 @@
 /Client/node_modules
 /Client/.cache
 /Client/.env
+/config/default.json
 
 # testing
 /coverage
