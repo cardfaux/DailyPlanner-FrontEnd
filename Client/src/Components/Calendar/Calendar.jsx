@@ -2,13 +2,9 @@ import React, { useState } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
-import { VALIDATOR_REQUIRE, VALIDATOR_MINLENGTH } from '../../Utils/Validators';
+
 import { v1 as uuidv1 } from 'uuid';
 
-import Modal from '../../Shared/Components/UIElements/Modal/Modal';
-import Input from '../../Shared/Components/FormElements/Input/Input';
-import Button from '../../Shared/Components/FormElements/Button/Button';
-import { useForm } from '../../Shared/Hooks/Form-Hook';
 import '../../Styles/CSS/App.css';
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.css';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
@@ -20,34 +16,13 @@ const DragAndDropCalendar = withDragAndDrop(Calendar);
 
 const MainCalendar = () => {
   const [state, setState] = useState({
-    events: Events
+    events: Events,
+    title: '',
+    start: '',
+    end: '',
+    openSlot: false
   });
-
-  const [startDate, setStartDate] = useState({});
-
-  const [formState, inputHandler] = useForm(
-    {
-      title: {
-        value: '',
-        isValid: false
-      },
-      start: {
-        value: '',
-        isValid: false
-      },
-      end: {
-        value: '',
-        isValid: false
-      }
-    },
-    false
-  );
-
-  const [addEvent, setAddEvent] = useState(false);
-
-  const addEventHandler = () => setAddEvent(true);
-
-  const closeEventHandler = () => setAddEvent(false);
+  console.log('TOP OF FILE', state);
 
   const moveEvent = ({ event, start, end, isAllDay: droppedOnAllDaySlot }) => {
     const { events } = state;
@@ -91,21 +66,20 @@ const MainCalendar = () => {
   };
 
   const handleSlotSelected = (slotInfo) => {
-    addEventHandler();
     console.log('Real slotInfo', slotInfo);
-    setStartDate({
-      // id: uuidv1(),
-      // title: '',
-      start: slotInfo.start
-      // end: slotInfo.end,
-      // openSlot: true
+
+    setState({
+      events: Events,
+      id: uuidv1(),
+      title: 'New Event',
+      start: slotInfo.start,
+      end: slotInfo.end,
+      openSlot: true
     });
-    console.log(startDate);
-    console.log(setStartDate.start);
   };
 
   const newEvent = (event) => {
-    console.log(event.slots[0]);
+    //console.log(event.slots[0]);
     let hour = {
       id: uuidv1(),
       title: 'New Event',
@@ -117,57 +91,9 @@ const MainCalendar = () => {
       events: state.events.concat([hour])
     });
   };
-
-  const eventSubmitHandler = (event) => {
-    event.preventDefault();
-
-    closeEventHandler();
-  };
-
+  console.log('+++++++', state);
   return (
     <React.Fragment>
-      <Modal
-        show={addEvent}
-        header='ADD NEW EVENT'
-        onCancel={closeEventHandler}
-        footer={
-          <React.Fragment>
-            <Button onClick={closeEventHandler}>Close</Button>
-            <Button type='submit'>Add Event</Button>
-          </React.Fragment>
-        }
-        onSubmit={eventSubmitHandler}
-      >
-        <div>
-          <Input
-            id='title'
-            element='input'
-            type='text'
-            label='Title'
-            onInput={inputHandler}
-            validators={[VALIDATOR_MINLENGTH(5)]}
-            errorText='Please enter a valid title (at least 5 characters).'
-          />
-          <Input
-            id='start'
-            element='input'
-            type='date'
-            label='Start'
-            onInput={inputHandler}
-            validators={[VALIDATOR_REQUIRE()]}
-            errorText='Please Pick A Valid Start Date'
-          />
-          <Input
-            id='end'
-            element='input'
-            type='date'
-            label='End'
-            onInput={inputHandler}
-            validators={[VALIDATOR_REQUIRE()]}
-            errorText='Please Pick A Valid End Date'
-          />
-        </div>
-      </Modal>
       <div className='App'>
         <DragAndDropCalendar
           defaultDate={new Date()}
@@ -177,8 +103,8 @@ const MainCalendar = () => {
           localizer={localizer}
           onEventDrop={moveEvent}
           onEventResize={resizeEvent}
-          //onSelectSlot={(slotInfo) => handleSlotSelected(slotInfo)}
-          onSelectSlot={newEvent}
+          onSelectSlot={(slotInfo) => handleSlotSelected(slotInfo)}
+          //onSelectSlot={newEvent}
           resizable
           style={{ height: '100vh' }}
         />
