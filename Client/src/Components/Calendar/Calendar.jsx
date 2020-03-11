@@ -3,6 +3,7 @@ import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 import { VALIDATOR_REQUIRE, VALIDATOR_MINLENGTH } from '../../Utils/Validators';
+import { v1 as uuidv1 } from 'uuid';
 
 import Modal from '../../Shared/Components/UIElements/Modal/Modal';
 import Input from '../../Shared/Components/FormElements/Input/Input';
@@ -86,6 +87,22 @@ const MainCalendar = (props) => {
 
     alert(`${event.title} was resized to ${start}-${end}`);
   };
+
+  const newEvent = (event) => {
+    //let idList = state.events.map((a) => a.id);
+    let newId = uuidv1();
+    let hour = {
+      id: newId,
+      title: 'New Event',
+      allDay: event.slots.length == 1,
+      start: event.start,
+      end: event.end
+    };
+    console.log(event);
+    setState({
+      events: state.events.concat([hour])
+    });
+  };
   console.log(state);
 
   const eventSubmitHandler = (event) => {
@@ -141,14 +158,16 @@ const MainCalendar = (props) => {
           {/* </form> */}
         </div>
       </Modal>
-      <div onClick={addEventHandler} className='App'>
+      <div className='App'>
         <DragAndDropCalendar
           defaultDate={new Date()}
+          selectable
           defaultView='month'
           events={state.events}
           localizer={localizer}
           onEventDrop={moveEvent}
           onEventResize={resizeEvent}
+          onSelectSlot={newEvent}
           resizable
           style={{ height: '100vh' }}
         />
