@@ -91,7 +91,7 @@ const MainCalendar = (props) => {
   const newEvent = (event) => {
     let hour = {
       id: uuidv1(),
-      title: 'New Event',
+      title: 'New New Event',
       allDay: event.slots.length == 1,
       start: event.start,
       end: event.end
