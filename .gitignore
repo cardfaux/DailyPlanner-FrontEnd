@@ -5,6 +5,7 @@
 /Client/dist
 /Client/node_modules
 /Client/.cache
+/Client/.env
 
 # testing
 /coverage

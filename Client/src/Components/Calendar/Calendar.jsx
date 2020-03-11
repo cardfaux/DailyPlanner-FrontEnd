@@ -18,7 +18,7 @@ import Events from '../../Utils/Events';
 const localizer = momentLocalizer(moment);
 const DragAndDropCalendar = withDragAndDrop(Calendar);
 
-const MainCalendar = (props) => {
+const MainCalendar = () => {
   const [state, setState] = useState({
     events: Events
   });
@@ -88,24 +88,21 @@ const MainCalendar = (props) => {
     alert(`${event.title} was resized to ${start}-${end}`);
   };
 
-  const newEvent = (event) => {
-    let hour = {
+  const handleSlotSelected = (slotInfo) => {
+    addEventHandler();
+    console.log('Real slotInfo', slotInfo);
+    setFormState({
       id: uuidv1(),
-      title: 'New New Event',
-      allDay: event.slots.length == 1,
-      start: event.start,
-      end: event.end
-    };
-    console.log(event);
-    setState({
-      events: state.events.concat([hour])
+      title: '',
+      start: slotInfo.start,
+      end: slotInfo.end,
+      openSlot: true
     });
   };
-  console.log(state);
 
   const eventSubmitHandler = (event) => {
     event.preventDefault();
-    console.log(formState.inputs);
+
     closeEventHandler();
   };
 
@@ -162,7 +159,7 @@ const MainCalendar = (props) => {
           localizer={localizer}
           onEventDrop={moveEvent}
           onEventResize={resizeEvent}
-          onSelectSlot={newEvent}
+          onSelectSlot={(slotInfo) => handleSlotSelected(slotInfo)}
           resizable
           style={{ height: '100vh' }}
         />
