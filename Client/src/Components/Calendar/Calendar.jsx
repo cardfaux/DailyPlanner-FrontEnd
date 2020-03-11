@@ -89,10 +89,8 @@ const MainCalendar = (props) => {
   };
 
   const newEvent = (event) => {
-    //let idList = state.events.map((a) => a.id);
-    let newId = uuidv1();
     let hour = {
-      id: newId,
+      id: uuidv1(),
       title: 'New Event',
       allDay: event.slots.length == 1,
       start: event.start,
@@ -126,7 +124,6 @@ const MainCalendar = (props) => {
         onSubmit={eventSubmitHandler}
       >
         <div>
-          {/* <form onSubmit={eventSubmitHandler}> */}
           <Input
             id='title'
             element='input'
@@ -154,8 +151,6 @@ const MainCalendar = (props) => {
             validators={[VALIDATOR_REQUIRE()]}
             errorText='Please Pick A Valid End Date'
           />
-
-          {/* </form> */}
         </div>
       </Modal>
       <div className='App'>
