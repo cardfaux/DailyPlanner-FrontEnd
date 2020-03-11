@@ -23,6 +23,8 @@ const MainCalendar = () => {
     events: Events
   });
 
+  const [startDate, setStartDate] = useState({});
+
   const [formState, inputHandler] = useForm(
     {
       title: {
@@ -91,12 +93,28 @@ const MainCalendar = () => {
   const handleSlotSelected = (slotInfo) => {
     addEventHandler();
     console.log('Real slotInfo', slotInfo);
-    setFormState({
+    setStartDate({
+      // id: uuidv1(),
+      // title: '',
+      start: slotInfo.start
+      // end: slotInfo.end,
+      // openSlot: true
+    });
+    console.log(startDate);
+    console.log(setStartDate.start);
+  };
+
+  const newEvent = (event) => {
+    console.log(event.slots[0]);
+    let hour = {
       id: uuidv1(),
-      title: '',
-      start: slotInfo.start,
-      end: slotInfo.end,
-      openSlot: true
+      title: 'New Event',
+      allDay: event.slots.length == 1,
+      start: event.start,
+      end: event.end
+    };
+    setState({
+      events: state.events.concat([hour])
     });
   };
 
@@ -159,7 +177,8 @@ const MainCalendar = () => {
           localizer={localizer}
           onEventDrop={moveEvent}
           onEventResize={resizeEvent}
-          onSelectSlot={(slotInfo) => handleSlotSelected(slotInfo)}
+          //onSelectSlot={(slotInfo) => handleSlotSelected(slotInfo)}
+          onSelectSlot={newEvent}
           resizable
           style={{ height: '100vh' }}
         />
