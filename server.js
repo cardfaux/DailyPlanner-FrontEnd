@@ -5,9 +5,51 @@ const connectDB = require('./config/db');
 const app = express();
 
 // Connect To The DataBase
-connectDB()
+connectDB();
 
-app.get('/', (req, res) => res.send('API RUNNING'))
+app.get('/', (req, res) => res.send('API RUNNING'));
+
+// Define Routes
+const userRoutes = require('./routes/users-routes');
+const HttpError = require('./models/http-error');
+
+// BodyParser InIt
+app.use(express.json({ extended: false }));
+
+// CORS Middleware to attatch to every response
+app.use((req, res, next) => {
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader(
+		'Access-Control-Allow-Headers',
+		'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+	);
+	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE');
+	next();
+});
+
+// Bring In And Prefix Routes
+app.use('/api/users', userRoutes);
+
+// Error Handling Routes And MiddleWare
+app.use((req, res, next) => {
+	const error = new HttpError('Could Not Find This Route', 404);
+	throw error;
+});
+
+app.use((error, req, res, next) => {
+	// Rollback File Upload If We Get An Error
+	if (req.file) {
+		fs.unlink(req.file.path, (err) => {
+			console.log(err);
+		});
+	}
+	if (res.headersSent) {
+		return next(error);
+	}
+	res.status(error.code || 500);
+	res.json({ message: error.message || 'An Unknown Error Occurred' });
+});
+// Error Handling Routes And MiddleWare
 
 const PORT = process.env.PORT || 5000;
 
