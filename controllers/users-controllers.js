@@ -107,7 +107,8 @@ const signup = async (req, res, next) => {
 		return next(error);
 	}
 
-	res.status(201).json({
+	res.status(201);
+	res.json({
 		userId: createdUser.id,
 		email: createdUser.email,
 		userName: createdUser.name,
