@@ -1,7 +1,9 @@
+// Packages
 const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
+// Bring In Error Model
 const HttpError = require('../models/http-error');
 
 // Bring In The User Model
