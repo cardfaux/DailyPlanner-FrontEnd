@@ -1,13 +1,23 @@
+// Core NodeJS Module
+const fs = require('fs');
+const path = require('path');
+// Core NodeJS Module
+
+// Packages
 const express = require('express');
+// Packages
 
+// Bring In DataBase Connection Function
 const connectDB = require('./config/db');
+// Bring In DataBase Connection Function
 
+// Express
 const app = express();
+// Express
 
-// Connect To The DataBase
-connectDB();
-
+// Test Connection Route
 app.get('/', (req, res) => res.send('API RUNNING'));
+// Test Connection Route
 
 // Define Routes
 const userRoutes = require('./routes/users-routes');
@@ -15,6 +25,11 @@ const HttpError = require('./models/http-error');
 
 // BodyParser InIt
 app.use(express.json({ extended: false }));
+// BodyParser InIt
+
+// Parse The Image Uploads
+app.use('/uploads/images', express.static(path.join('uploads', 'images')));
+// Parse The Image Uploads
 
 // CORS Middleware to attatch to every response
 app.use((req, res, next) => {
@@ -51,6 +66,8 @@ app.use((error, req, res, next) => {
 });
 // Error Handling Routes And MiddleWare
 
+// Start The Server And Connect To The DataBase
 const PORT = process.env.PORT || 5000;
-
 app.listen(PORT, () => console.log(`APP IS RUNNING ON ${PORT}`));
+connectDB();
+// Start The Server And Connect To The DataBase
