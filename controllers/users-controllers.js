@@ -2,12 +2,16 @@
 const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const config = require('config');
 
 // Bring In Error Model
 const HttpError = require('../models/http-error');
 
 // Bring In The User Model
 const User = require('./../models/user-model');
+
+// jwtSecret From Config Set To A Variable To Use In The Application
+const jwtSecret = config.get('jwtSecret');
 
 // @type -- GET
 // @path -- /api/users
@@ -92,7 +96,7 @@ const signup = async (req, res, next) => {
 				email: createdUser.email,
 				userName: createdUser.name
 			},
-			process.env.JWT_KEY,
+			jwtSecret,
 			{ expiresIn: '1h' }
 		);
 	} catch (err) {
@@ -157,7 +161,7 @@ const login = async (req, res, next) => {
 				email: existingUser.email,
 				userName: existingUser.name
 			},
-			process.env.JWT_KEY,
+			jwtSecret,
 			{ expiresIn: '1h' }
 		);
 	} catch (err) {
