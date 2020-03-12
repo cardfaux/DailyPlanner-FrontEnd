@@ -23,6 +23,7 @@ const getUsers = async (req, res, next) => {
 	}
 
 	res.json({ users: users.map((user) => user.toObject({ getters: true })) });
+	//res.send('GET USERS ROUTE');
 };
 
 // @type -- POST

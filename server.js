@@ -16,6 +16,7 @@ const app = express();
 // Express
 
 // Test Connection Route
+// http://localhost:5000
 app.get('/', (req, res) => res.send('API RUNNING'));
 // Test Connection Route
 
@@ -42,15 +43,17 @@ app.use((req, res, next) => {
 	next();
 });
 
-// Bring In And Prefix Routes
+// Bring In And Prefix Routes Middleware
 app.use('/api/users', userRoutes);
 
-// Error Handling Routes And MiddleWare
+// Default Error Handling MiddleWare
 app.use((req, res, next) => {
 	const error = new HttpError('Could Not Find This Route', 404);
 	throw error;
 });
 
+// With error As A Parameter Express Knows It's An Error Middleware
+// Will Only Get Executed on Requests That Has An Error Attatched To It, If Any Middleware Before Has An Error
 app.use((error, req, res, next) => {
 	// Rollback File Upload If We Get An Error
 	if (req.file) {
@@ -58,10 +61,14 @@ app.use((error, req, res, next) => {
 			console.log(err);
 		});
 	}
+	// Check If Response and Headers Has Already Been Sent
 	if (res.headersSent) {
+		// return next and forward the Error
 		return next(error);
 	}
+	// If We Make It Here Then No Response Has Been Sent, So We Send One
 	res.status(error.code || 500);
+	// Every Error Sent Back Should Have A Message Property
 	res.json({ message: error.message || 'An Unknown Error Occurred' });
 });
 // Error Handling Routes And MiddleWare
