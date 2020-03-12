@@ -8,9 +8,9 @@ const userSchema = new Schema({
 	// Unique True Will Create An Internal Index For This Field
 	email: { type: String, required: true, unique: true },
 	password: { type: String, required: true, minlength: 6 },
-	image: { type: String },
-	places: [{ type: mongoose.Types.ObjectId, required: true, ref: 'Place' }],
-	posts: [{ type: mongoose.Types.ObjectId, required: true, ref: 'Post' }]
+	image: { type: String }
+	//places: [{ type: mongoose.Types.ObjectId, required: true, ref: 'Place' }],
+	//posts: [{ type: mongoose.Types.ObjectId, required: true, ref: 'Post' }]
 });
 
 userSchema.plugin(uniqueValidator);
