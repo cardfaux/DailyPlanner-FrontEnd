@@ -107,7 +107,7 @@ const createMyEvents = async (req, res, next) => {
 		// Create Our Place And Create An Unique Id
 		await createdEvent.save({ session: sess });
 		// Add The Place Id To Our User As Well
-		// This Push Is Not The Standard Push, Allows Mongoose To Establish A Connection Between The @ Models
+		// This Push Is Not The Standard Push, Allows Mongoose To Establish A Connection Between The Models
 		// Adds The PlaceId To The Places Field Of The User
 		user.events.push(createdEvent);
 		await user.save({ session: sess });
