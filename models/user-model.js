@@ -11,7 +11,7 @@ const userSchema = new Schema({
 	image: { type: String },
 	date: { type: Date, default: Date.now },
 	events: [{ type: mongoose.Types.ObjectId, required: true, ref: 'Event' }],
-	profile: { type: mongoose.Types.ObjectId, required: true, ref: 'Profile' }
+	profile: [{ type: mongoose.Types.ObjectId, required: true, ref: 'Profile' }]
 });
 
 userSchema.plugin(uniqueValidator);

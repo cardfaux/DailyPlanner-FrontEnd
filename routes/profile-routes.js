@@ -7,8 +7,12 @@ const profilesControllers = require('../controllers/profiles-controllers');
 
 const router = express.Router();
 
-//router.use(checkAuth);
-
 router.get('/', profilesControllers.getProfiles);
+
+router.use(checkAuth);
+
+router.get('/me', profilesControllers.getMyProfile);
+
+router.put('/notes', profilesControllers.addNotesToProfile);
 
 module.exports = router;

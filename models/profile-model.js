@@ -5,21 +5,21 @@ const Schema = mongoose.Schema;
 const profileSchema = new Schema({
 	notes: [
 		{
-			title: { type: String, required: true },
-			description: { type: String, required: true },
+			title: { type: String },
+			description: { type: String },
 			createdAt: { type: Date, default: Date.now }
 		}
 	],
 	contacts: [
 		{
-			name: { type: String, required: true },
+			name: { type: String },
 			address: {
-				street: { type: String, required: true },
-				city: { type: String, required: true },
-				state: { type: String, required: true },
-				zip: { type: Number, required: true }
+				street: { type: String },
+				city: { type: String },
+				state: { type: String },
+				zip: { type: Number }
 			},
-			number: { type: Number, required: true }
+			number: { type: Number }
 		}
 	],
 	date: { type: Date, default: Date.now },
