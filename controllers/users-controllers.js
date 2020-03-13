@@ -91,12 +91,15 @@ const signup = async (req, res, next) => {
 	let token;
 	try {
 		token = jwt.sign(
+			// The Payload For The Token
 			{
 				userId: createdUser.id,
 				email: createdUser.email,
 				userName: createdUser.name
 			},
+			// The Secret The Token Is Signed With
 			jwtSecret,
+			// How Long The Token Is Valid For
 			{ expiresIn: '1h' }
 		);
 	} catch (err) {
