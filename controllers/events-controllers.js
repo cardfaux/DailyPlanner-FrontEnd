@@ -125,6 +125,58 @@ const createMyEvents = async (req, res, next) => {
 	res.status(201).json({ event: createdEvent });
 };
 
+// @type -- PATCH
+// @path -- /api/events/:eid
+// @desc -- path to update an event the id
+const updateEventById = async (req, res, next) => {
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		// Can not Use Throw Inside Of An Async Function
+		//throw new HttpError('Invalid Inputs Passed, Please Check Your Data', 422);
+		return next(
+			new HttpError('Invalid Inputs Passed, Please Check Your Data', 422)
+		);
+	}
+
+	const { title, allDay, start, end, description } = req.body;
+	const eventId = req.params.eid;
+
+	let event;
+	try {
+		event = await Event.findById(eventId);
+	} catch (err) {
+		const error = new HttpError(
+			'Something Went Wrong, Could Not Update Event',
+			500
+		);
+		return next(error);
+	}
+
+	if (event.creator.toString() !== req.userData.userId) {
+		const error = new HttpError('Editing Failed, Authorization Denied...', 401);
+		return next(error);
+	}
+
+	event.title = title;
+	event.allDay = allDay;
+	event.start = start;
+	event.end = end;
+	event.description = description;
+
+	try {
+		await event.save();
+	} catch (err) {
+		const error = new HttpError(
+			'Something Went Wrong, Could Not Save The Updated Event',
+			500
+		);
+		return next(error);
+	}
+
+	res.status(200).json({ event: event.toObject({ getters: true }) });
+};
+
 exports.getEvents = getEvents;
 exports.getMyEvents = getMyEvents;
 exports.createMyEvents = createMyEvents;
+exports.updateEventById = updateEventById;

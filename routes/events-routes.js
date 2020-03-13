@@ -32,4 +32,23 @@ router.post(
 	eventsControllers.createMyEvents
 );
 
+router.patch(
+	'/:eid',
+	[
+		check('title')
+			.not()
+			.isEmpty(),
+		check('allDay')
+			.not()
+			.isEmpty(),
+		check('start')
+			.not()
+			.isEmpty(),
+		check('end')
+			.not()
+			.isEmpty()
+	],
+	eventsControllers.updateEventById
+);
+
 module.exports = router;
