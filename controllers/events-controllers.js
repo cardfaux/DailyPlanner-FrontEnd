@@ -36,9 +36,7 @@ const getMyEvents = async (req, res, next) => {
 	let myEvents;
 
 	try {
-		myEvents = await Event.findOne({
-			creator: req.userData.userId
-		}).populate('User', ['name', 'image']);
+		myEvents = await User.findById(req.userData.userId).populate('events');
 	} catch (err) {
 		const error = new HttpError('Fetching User Events Failed', 500);
 		return next(error);
@@ -98,9 +96,10 @@ const createMyEvents = async (req, res, next) => {
 
 	console.log(user);
 
-	// Create an Events Document This Will Not Create It Automatically
+	// Create an Events Collection This Will Not Create It Automatically
 	try {
 		// Current Session
+		// This Allows To Only Store The Changes If Both Operations Is Successful
 		const sess = await mongoose.startSession();
 		// Start Transaction In The Current Session
 		sess.startTransaction();
@@ -112,6 +111,8 @@ const createMyEvents = async (req, res, next) => {
 		// Adds The PlaceId To The Places Field Of The User
 		user.events.push(createdEvent);
 		await user.save({ session: sess });
+		// Only At This Point Is The Session Saved In The DataBase
+		// If Anything Failed Before This Point All Things Would Have Been Rolled Back And Not Saved
 		await sess.commitTransaction();
 	} catch (err) {
 		const error = new HttpError(
