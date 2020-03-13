@@ -6,7 +6,8 @@ const profileSchema = new Schema({
 	notes: [
 		{
 			title: { type: String, required: true },
-			description: { type: String, required: true }
+			description: { type: String, required: true },
+			createdAt: { type: Date, default: Date.now }
 		}
 	],
 	contacts: [
