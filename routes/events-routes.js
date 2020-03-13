@@ -51,4 +51,6 @@ router.patch(
 	eventsControllers.updateEventById
 );
 
+router.delete('/:eid', eventsControllers.deleteEventById);
+
 module.exports = router;

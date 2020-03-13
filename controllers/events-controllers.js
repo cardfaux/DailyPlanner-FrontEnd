@@ -176,7 +176,56 @@ const updateEventById = async (req, res, next) => {
 	res.status(200).json({ event: event.toObject({ getters: true }) });
 };
 
+// @type -- DELETE
+// @path -- /api/events/:eid
+// @desc -- path to delete an event the id
+const deleteEventById = async (req, res, next) => {
+	const eventId = req.params.eid;
+
+	let event;
+	try {
+		event = await Event.findById(eventId).populate('creator');
+	} catch (err) {
+		const error = new HttpError(
+			'Something Went Wrong Deleteing The Event',
+			500
+		);
+		return next(error);
+	}
+
+	if (!event) {
+		const error = new HttpError('Could Not Find An Event For The Id', 404);
+		return next(error);
+	}
+
+	if (event.creator.id !== req.userData.userId) {
+		const error = new HttpError(
+			'Deleting Failed, Authorization Denied...',
+			401
+		);
+		return next(error);
+	}
+
+	try {
+		const sess = await mongoose.startSession();
+		sess.startTransaction();
+		await event.remove({ session: sess });
+		// Pull Will Automatically Remove The Id
+		event.creator.events.pull(event);
+		await event.creator.save({ session: sess });
+		await sess.commitTransaction();
+	} catch (err) {
+		const error = new HttpError(
+			'Something Went Wrong Deleteing The Event',
+			500
+		);
+		return next(error);
+	}
+	res.status(200).json({ message: 'Deleted Event Successfully!' });
+};
+
 exports.getEvents = getEvents;
 exports.getMyEvents = getMyEvents;
 exports.createMyEvents = createMyEvents;
 exports.updateEventById = updateEventById;
+exports.deleteEventById = deleteEventById;
