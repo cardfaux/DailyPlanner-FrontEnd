@@ -1,6 +1,8 @@
 const express = require('express');
 const { check } = require('express-validator');
 
+const checkAuth = require('../middleware/check-auth');
+
 const usersControllers = require('../controllers/users-controllers');
 const fileUpload = require('../middleware/file-upload');
 
@@ -25,6 +27,8 @@ router.post(
 );
 
 router.post('/login', usersControllers.login);
+
+router.get('/myData', checkAuth, usersControllers.getMyData);
 // ----------------Users Routes Ends----------------------------------
 
 module.exports = router;

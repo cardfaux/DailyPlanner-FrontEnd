@@ -8,7 +8,7 @@ const config = require('config');
 const HttpError = require('../models/http-error');
 
 // Bring In The User Model
-const User = require('./../models/user-model');
+const User = require('../models/user-model');
 
 // jwtSecret From Config Set To A Variable To Use In The Application
 const jwtSecret = config.get('jwtSecret');
@@ -27,6 +27,23 @@ const getUsers = async (req, res, next) => {
 	}
 
 	res.json({ users: users.map((user) => user.toObject({ getters: true })) });
+};
+
+// @type -- GET
+// @path -- /api/users/myData
+// @desc -- path to get all the users
+const getMyData = async (req, res, next) => {
+	let userData;
+
+	try {
+		userData = await User.findById(req.userData.userId).select('-password');
+	} catch (err) {
+		const error = new HttpError('Fetching User Data Failed', 500);
+		return next(error);
+	}
+
+	//res.json({ user: userData.map((user) => user.toObject({ getters: true })) });
+	res.json({ userData: userData.toObject({ getters: true }) });
 };
 
 // @type -- POST
@@ -182,5 +199,6 @@ const login = async (req, res, next) => {
 };
 
 exports.getUsers = getUsers;
+exports.getMyData = getMyData;
 exports.signup = signup;
 exports.login = login;
