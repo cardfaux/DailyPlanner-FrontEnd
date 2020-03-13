@@ -11,4 +11,25 @@ router.use(checkAuth);
 
 router.get('/', eventsControllers.getEvents);
 
+router.get('/me', eventsControllers.getMyEvents);
+
+router.post(
+	'/',
+	[
+		check('title')
+			.not()
+			.isEmpty(),
+		check('allDay')
+			.not()
+			.isEmpty(),
+		check('start')
+			.not()
+			.isEmpty(),
+		check('end')
+			.not()
+			.isEmpty()
+	],
+	eventsControllers.createMyEvents
+);
+
 module.exports = router;
