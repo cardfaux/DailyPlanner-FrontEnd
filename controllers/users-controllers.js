@@ -92,7 +92,9 @@ const signup = async (req, res, next) => {
 		email,
 		//image: req.file.path,
 		password: hashedPassword,
-		events: []
+		events: [],
+		notes: [],
+		contacts: []
 	});
 
 	try {
