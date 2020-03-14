@@ -1,7 +1,7 @@
 import styled, { createGlobalStyle } from 'styled-components';
 
 export const Main = styled.main`
-  margin-top: 0;
+  margin-top: 5rem;
 `;
 
 export const GlobalStyle = createGlobalStyle`
