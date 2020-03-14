@@ -7,7 +7,8 @@ import {
   Redirect
 } from 'react-router-dom';
 
-import Calendar from './Components/Calendar/Calendar.jsx';
+import Calendar from './Components/Calendar/Calendar';
+import Auth from './Pages/Authenticate/Auth';
 import MainNavigation from './Shared/Components/Navigation/MainNavigation/MainNavigation';
 import { AuthContext } from './Shared/Context/auth-context';
 import { useAuth } from './Shared/Hooks/Auth-Hook';
@@ -19,12 +20,22 @@ const App = () => {
 
   let routes;
 
-  routes = (
-    <Switch>
-      <Route path='/' exact component={Calendar} />
-      <Redirect to='/' />
-    </Switch>
-  );
+  if (!token) {
+    routes = (
+      <Switch>
+        <Route path='/' exact component={Calendar} />
+        <Route path='/auth' exact component={Auth} />
+        <Redirect to='/' />
+      </Switch>
+    );
+  } else {
+    routes = (
+      <Switch>
+        <Route path='/auth' exact component={Auth} />
+        <Redirect to='/auth' />
+      </Switch>
+    );
+  }
 
   return (
     <AuthContext.Provider
