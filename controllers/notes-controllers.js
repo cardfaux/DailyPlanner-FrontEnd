@@ -8,55 +8,53 @@ const HttpError = require('../models/http-error');
 // Bring In The User Model
 const User = require('../models/user-model');
 
-// Bring In The Event Model
-const Profile = require('../models/profile-model');
+// Bring In The Note Model
+const Note = require('../models/note-model');
 
 // @type -- GET
-// @path -- /api/profiles
-// @desc -- path to get all the profiles
-const getProfiles = async (req, res, next) => {
-	let profiles;
+// @path -- /api/notes
+// @desc -- path to get all notes
+const getNotes = async (req, res, next) => {
+	let notes;
 
 	try {
-		profiles = await Profile.find({});
+		notes = await Note.find({});
 	} catch (err) {
-		const error = new HttpError('Fetching Profiles Failed', 500);
+		const error = new HttpError('Fetching Notes Failed', 500);
 		return next(error);
 	}
 
 	res.json({
-		profiles: profiles.map((profile) => profile.toObject({ getters: true }))
+		notes: notes.map((note) => note.toObject({ getters: true }))
 	});
 };
 
 // @type -- GET
-// @path -- /api/profiles/me
-// @desc -- path to get users profile
-const getMyProfile = async (req, res, next) => {
-	let myProfile;
+// @path -- /api/notes/me
+// @desc -- path to get users notes
+const getMyNotes = async (req, res, next) => {
+	let myNotes;
 
 	try {
-		myProfile = await User.findById(req.userData.userId).populate('profile');
+		myNotes = await User.findById(req.userData.userId).populate('notes');
 	} catch (err) {
-		const error = new HttpError('Fetching Users Profile Failed', 500);
+		const error = new HttpError('Fetching Users Notes Failed', 500);
 		return next(error);
 	}
 
-	if (!myProfile) {
-		return next(new HttpError('There Is No Profile For That User.', 404));
+	if (!myNotes) {
+		return next(new HttpError('There Is No Notes For That User.', 404));
 	}
 
 	res.json({
-		profile: myProfile.profile.map((profile) =>
-			profile.toObject({ getters: true })
-		)
+		notes: myNotes.notes.map((note) => note.toObject({ getters: true }))
 	});
 };
 
 // @type -- POST
-// @path -- /api/profiles
-// @desc -- path to create profile
-const addNotesToProfile = async (req, res, next) => {
+// @path -- /api/notes
+// @desc -- path to create notes
+const createANewNote = async (req, res, next) => {
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
 		// Can Not Use throw Inside Of An Async Function
@@ -68,8 +66,8 @@ const addNotesToProfile = async (req, res, next) => {
 
 	const { title, description } = req.body;
 
-	// Build Event Object Instanciate Event Constructor
-	const createdNotes = new Profile({
+	// Build Event Object Instanciate Note Constructor
+	const createdNote = new Note({
 		title,
 		description,
 		creator: req.userData.userId
@@ -80,7 +78,7 @@ const addNotesToProfile = async (req, res, next) => {
 		user = await User.findById(req.userData.userId);
 	} catch (err) {
 		const error = new HttpError(
-			'Creating A New Profile Failed, Please Try Again',
+			'Creating A New Note Failed, Please Try Again',
 			500
 		);
 		return next(error);
@@ -101,26 +99,26 @@ const addNotesToProfile = async (req, res, next) => {
 		sess.startTransaction();
 		// Tell Mongoose Whst To Do
 		// Create Our Place And Create An Unique Id
-		await createdNotes.save({ session: sess });
+		await createdNote.save({ session: sess });
 		// Add The Place Id To Our User As Well
 		// This Push Is Not The Standard Push, Allows Mongoose To Establish A Connection Between The Models
 		// Adds The PlaceId To The Places Field Of The User
-		user.profile.notes.push(createdNotes);
+		user.notes.push(createdNote);
 		await user.save({ session: sess });
 		// Only At This Point Is The Session Saved In The DataBase
 		// If Anything Failed Before This Point All Things Would Have Been Rolled Back And Not Saved
 		await sess.commitTransaction();
 	} catch (err) {
 		const error = new HttpError(
-			'Creating A Profile Failed, Please Try Again',
+			'Creating A Note Failed, Please Try Again',
 			500
 		);
 		return next(error);
 	}
 
-	res.status(201).json({ notes: createdNotes });
+	res.status(201).json({ note: createdNote });
 };
 
-exports.getProfiles = getProfiles;
-exports.getMyProfile = getMyProfile;
-exports.addNotesToProfile = addNotesToProfile;
+exports.getNotes = getNotes;
+exports.getMyNotes = getMyNotes;
+exports.createANewNote = createANewNote;
