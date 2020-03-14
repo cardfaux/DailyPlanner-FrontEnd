@@ -33,21 +33,25 @@ const getEvents = async (req, res, next) => {
 // @path -- /api/events/me
 // @desc -- path to get user events
 const getMyEvents = async (req, res, next) => {
-	let myEvents;
+	let userWithEvents;
 
 	try {
-		myEvents = await User.findById(req.userData.userId).populate('events');
+		userWithEvents = await User.findById(req.userData.userId).populate(
+			'events'
+		);
 	} catch (err) {
 		const error = new HttpError('Fetching User Events Failed', 500);
 		return next(error);
 	}
 
-	if (!myEvents) {
+	if (!userWithEvents || userWithEvents.events.length === 0) {
 		return next(new HttpError('There Is No Events For That User.', 404));
 	}
 
 	res.json({
-		events: myEvents.events.map((event) => event.toObject({ getters: true }))
+		events: userWithEvents.events.map((event) =>
+			event.toObject({ getters: true })
+		)
 	});
 };
 
