@@ -23,7 +23,8 @@ app.get('/', (req, res) => res.send('API RUNNING'));
 // Define Routes
 const userRoutes = require('./routes/users-routes');
 const eventRoutes = require('./routes/events-routes');
-const notesRoutes = require('./routes/notes-routes');
+const noteRoutes = require('./routes/notes-routes');
+const contactRoutes = require('./routes/contacts-routes');
 const HttpError = require('./models/http-error');
 
 // BodyParser InIt
@@ -51,7 +52,8 @@ app.use((req, res, next) => {
 // Bring In And Prefix Routes Middleware
 app.use('/api/users', userRoutes);
 app.use('/api/events', eventRoutes);
-app.use('/api/notes', notesRoutes);
+app.use('/api/notes', noteRoutes);
+app.use('/api/contacts', contactRoutes);
 
 // Default Error Handling MiddleWare
 app.use((req, res, next) => {
