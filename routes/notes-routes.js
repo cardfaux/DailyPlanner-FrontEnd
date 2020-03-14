@@ -13,6 +13,32 @@ router.use(checkAuth);
 
 router.get('/me', notesControllers.getMyNotes);
 
-router.post('/', notesControllers.createANewNote);
+router.post(
+	'/',
+	[
+		check('title')
+			.not()
+			.isEmpty(),
+		check('description')
+			.not()
+			.isEmpty()
+	],
+	notesControllers.createANewNote
+);
+
+router.patch(
+	'/:nid',
+	[
+		check('title')
+			.not()
+			.isEmpty(),
+		check('description')
+			.not()
+			.isEmpty()
+	],
+	notesControllers.updateNoteById
+);
+
+router.delete('/:nid', notesControllers.deleteNoteById);
 
 module.exports = router;

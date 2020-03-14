@@ -7,9 +7,9 @@ const eventsControllers = require('../controllers/events-controllers');
 
 const router = express.Router();
 
-router.use(checkAuth);
-
 router.get('/', eventsControllers.getEvents);
+
+router.use(checkAuth);
 
 router.get('/me', eventsControllers.getMyEvents);
 

@@ -14,6 +14,7 @@ const Note = require('../models/note-model');
 // @type -- GET
 // @path -- /api/notes
 // @desc -- path to get all notes
+// @aces -- PUBLIC
 const getNotes = async (req, res, next) => {
 	let notes;
 
@@ -32,6 +33,7 @@ const getNotes = async (req, res, next) => {
 // @type -- GET
 // @path -- /api/notes/me
 // @desc -- path to get users notes
+// @aces -- PRIVATE
 const getMyNotes = async (req, res, next) => {
 	let myNotes;
 
@@ -54,6 +56,7 @@ const getMyNotes = async (req, res, next) => {
 // @type -- POST
 // @path -- /api/notes
 // @desc -- path to create notes
+// @aces -- PRIVATE
 const createANewNote = async (req, res, next) => {
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
@@ -119,6 +122,103 @@ const createANewNote = async (req, res, next) => {
 	res.status(201).json({ note: createdNote });
 };
 
+// @type -- PATCH
+// @path -- /api/notes/:nid
+// @desc -- path to update a note by id
+// @aces -- PRIVATE
+const updateNoteById = async (req, res, next) => {
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		// Can not Use Throw Inside Of An Async Function
+		//throw new HttpError('Invalid Inputs Passed, Please Check Your Data', 422);
+		return next(
+			new HttpError('Invalid Inputs Passed, Please Check Your Data', 422)
+		);
+	}
+
+	const { title, description } = req.body;
+	const noteId = req.params.nid;
+
+	let note;
+	try {
+		note = await Note.findById(noteId);
+	} catch (err) {
+		const error = new HttpError(
+			'Something Went Wrong, Could Not Update Note',
+			500
+		);
+		return next(error);
+	}
+
+	if (note.creator.toString() !== req.userData.userId) {
+		const error = new HttpError(
+			'Editing Note Failed, Authorization Denied...',
+			401
+		);
+		return next(error);
+	}
+
+	note.title = title;
+	note.description = description;
+
+	try {
+		await note.save();
+	} catch (err) {
+		const error = new HttpError(
+			'Something Went Wrong, Could Not Save The Updated Note',
+			500
+		);
+		return next(error);
+	}
+
+	res.status(200).json({ note: note.toObject({ getters: true }) });
+};
+
+// @type -- DELETE
+// @path -- /api/notes/:nid
+// @desc -- path to delete a note by the id
+// @aces -- PRIVATE
+const deleteNoteById = async (req, res, next) => {
+	const noteId = req.params.nid;
+
+	let note;
+	try {
+		note = await Note.findById(noteId).populate('creator');
+	} catch (err) {
+		const error = new HttpError('Something Went Wrong Deleteing The Note', 500);
+		return next(error);
+	}
+
+	if (!note) {
+		const error = new HttpError('Could Not Find A Note For The Id', 404);
+		return next(error);
+	}
+
+	if (note.creator.id !== req.userData.userId) {
+		const error = new HttpError(
+			'Deleting Note Failed, Authorization Denied...',
+			401
+		);
+		return next(error);
+	}
+
+	try {
+		const sess = await mongoose.startSession();
+		sess.startTransaction();
+		await note.remove({ session: sess });
+		// Pull Will Automatically Remove The Id
+		note.creator.notes.pull(note);
+		await note.creator.save({ session: sess });
+		await sess.commitTransaction();
+	} catch (err) {
+		const error = new HttpError('Something Went Wrong Deleteing The Note', 500);
+		return next(error);
+	}
+	res.status(200).json({ message: 'Deleted Note Successfully!' });
+};
+
 exports.getNotes = getNotes;
 exports.getMyNotes = getMyNotes;
 exports.createANewNote = createANewNote;
+exports.updateNoteById = updateNoteById;
+exports.deleteNoteById = deleteNoteById;

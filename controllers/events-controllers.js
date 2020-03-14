@@ -127,7 +127,7 @@ const createMyEvents = async (req, res, next) => {
 
 // @type -- PATCH
 // @path -- /api/events/:eid
-// @desc -- path to update an event the id
+// @desc -- path to update an event by id
 const updateEventById = async (req, res, next) => {
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
