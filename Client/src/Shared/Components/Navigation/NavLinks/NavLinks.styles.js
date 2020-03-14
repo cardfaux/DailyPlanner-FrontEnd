@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { Yellow, Black, White } from '../../../../Styles/JS/Colors';
+import { Black, White, Secondary } from '../../../../Styles/JS/Colors';
 
 export const Navigation = styled.ul`
   list-style: none;
@@ -29,7 +29,7 @@ export const ListItem = styled.li`
     &:hover,
     &:active,
     &.active {
-      background: ${Yellow};
+      background: ${Secondary};
       border-color: ${Black};
       color: ${Black};
     }
@@ -64,7 +64,7 @@ export const Button = styled.button`
     background: transparent;
     &:hover,
     &:active {
-      background: ${Yellow};
+      background: ${Secondary};
       color: ${Black};
     }
   }

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { Fixed } from '../../../../Styles/JS/Positions';
-import { Primary } from '../../../../Styles/JS/Colors';
+import { Black } from '../../../../Styles/JS/Colors';
 import { BoxShadow1 } from '../../../../Styles/JS/Shadows';
 
 export const MainHead = styled.header`
@@ -10,7 +10,7 @@ export const MainHead = styled.header`
   display: flex;
   align-items: center;
   ${Fixed({})};
-  background: ${Primary};
+  background: ${Black};
   box-shadow: ${BoxShadow1};
   padding: 0 1rem;
   z-index: 5;
