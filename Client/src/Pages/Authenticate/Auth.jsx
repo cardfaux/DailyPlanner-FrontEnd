@@ -16,7 +16,7 @@ import {
 import { useForm } from '../../Shared/Hooks/Form-Hook';
 import { useHttpClient } from '../../Shared/Hooks/Http-Hook';
 import { AuthContext } from '../../Shared/Context/auth-context';
-import { White, Black } from '../../Styles/JS/Colors';
+import { White, Black, Secondary } from '../../Styles/JS/Colors';
 
 const Auth = ({ className }) => {
   const auth = useContext(AuthContext);
@@ -197,5 +197,8 @@ export default styled(Auth)`
 
   label {
     color: ${Black};
+  }
+  hr {
+    color: ${Secondary};
   }
 `;

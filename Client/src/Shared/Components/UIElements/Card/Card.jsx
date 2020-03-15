@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { StyledCard } from './Card.styles.js';
+import { StyledCard } from './Card.styles';
 
 const Card = (props) => {
   return (

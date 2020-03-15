@@ -20,11 +20,10 @@ const App = () => {
 
   let routes;
 
-  if (!token) {
+  if (token) {
     routes = (
       <Switch>
         <Route path='/' exact component={Calendar} />
-        <Route path='/auth' exact component={Auth} />
         <Redirect to='/' />
       </Switch>
     );
