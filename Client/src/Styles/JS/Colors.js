@@ -9,3 +9,22 @@ export const textPrimary = '#b6b6b6';
 export const textSecondary = '#ececec';
 export const bgPrimary = '#23232e';
 export const bgSecondary = '#141418';
+
+// Blacks
+export const eerieBlack = '#1a181b';
+export const liccorice = '#141115';
+
+// BlueGreens
+export const turqouiseBlue = '#00fddc';
+export const springGreen = '#00ff7f';
+export const brightTurqouise = '#15e6cd';
+
+// Greens
+export const androidGreen = '#99c24d';
+export const carribeanGreen = '#03cea4';
+
+// Reds
+export const redPurple = '#e40066';
+export const vividRasberry = '#ff006e';
+export const fireBrick = '#bf211e';
+export const heildburgRed = '#a30015';

@@ -53,7 +53,7 @@ const ImageUpload = (props) => {
       <div className={`image-upload ${props.center && 'center'}`}>
         <div className='image-upload__preview'>
           {previewUrl && <img src={previewUrl} alt='Preview' />}
-          {!previewUrl && <p>Please pick an image.</p>}
+          {!previewUrl && <p className='imagetext'>Please pick an image.</p>}
         </div>
         <Button type='button' onClick={pickImageHandler}>
           PICK IMAGE
@@ -87,5 +87,8 @@ export default styled(ImageUpload)`
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+  .imagetext {
+    color: black;
   }
 `;

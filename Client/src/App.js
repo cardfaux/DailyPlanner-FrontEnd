@@ -7,7 +7,7 @@ import {
   Redirect
 } from 'react-router-dom';
 
-import Calendar from './Components/Calendar/Calendar';
+import Events from './Pages/Events/Events';
 import Auth from './Pages/Authenticate/Auth';
 import MainNavigation from './Shared/Components/Navigation/MainNavigation/MainNavigation';
 import { AuthContext } from './Shared/Context/auth-context';
@@ -23,8 +23,8 @@ const App = () => {
   if (token) {
     routes = (
       <Switch>
-        <Route path='/' exact component={Calendar} />
-        <Redirect to='/' />
+        <Route path='/events' exact component={Events} />
+        <Redirect to='/events' />
       </Switch>
     );
   } else {

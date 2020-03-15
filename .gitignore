@@ -7,6 +7,7 @@
 /Client/.cache
 /Client/.env
 /config/default.json
+/uploads
 
 # testing
 /coverage
