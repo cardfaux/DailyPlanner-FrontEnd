@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { FaRegCalendarAlt } from 'react-icons/fa';
 
+import ErrorModal from '../../../Shared/Components/UIElements/ErrorModal/ErrorModal';
+import LoadingSpinner from '../../../Shared/Components/UIElements/LoadingSpinner/LoadingSpinner';
 import Card from '../../../Shared/Components/UIElements/Card/Card';
 import { useHttpClient } from '../../../Shared/Hooks/Http-Hook';
 import { AuthContext } from '../../../Shared/Context/auth-context';
@@ -25,7 +27,6 @@ const MyEventsCard = ({ className }) => {
             Authorization: 'Bearer ' + auth.token
           }
         );
-        console.log(responseData);
         setEventCount(responseData.events.length);
       } catch (err) {}
     };
@@ -33,23 +34,29 @@ const MyEventsCard = ({ className }) => {
   }, [sendRequest]);
 
   return (
-    <div className={className}>
-      <Link to='/events'>
-        <Card>
-          <h1>
-            <FaRegCalendarAlt /> My Events: {eventCount}
-          </h1>
-        </Card>
-      </Link>
-    </div>
+    <React.Fragment>
+      <ErrorModal error={error} onClear={clearError} />
+      {isLoading && (
+        <div className='center'>
+          <LoadingSpinner />
+        </div>
+      )}
+      {!isLoading && (
+        <div className={className}>
+          <Link to='/events'>
+            <Card>
+              <h1>
+                <FaRegCalendarAlt /> My Events: {eventCount}
+              </h1>
+            </Card>
+          </Link>
+        </div>
+      )}
+    </React.Fragment>
   );
 };
 
 export default styled(MyEventsCard)`
-  /* display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row; */
   width: 30rem;
   text-align: center;
 
