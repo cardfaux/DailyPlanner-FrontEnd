@@ -1,15 +1,18 @@
 import React from 'react';
+import styled from 'styled-components';
 
-import Card from '../../Shared/Components/UIElements/Card/Card';
+import MyEventsCard from '../../Components/HomePage/MyEventsCard/MyEventsCard';
 
-const HomePage = () => {
+const HomePage = (props) => {
   return (
-    <div>
-      <Card>
-        <h1>I Am A Card</h1>
-      </Card>
+    <div className={props.className}>
+      <MyEventsCard />
     </div>
   );
 };
 
-export default HomePage;
+export default styled(HomePage)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
