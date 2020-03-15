@@ -7,6 +7,7 @@ const HomePage = (props) => {
   return (
     <div className={props.className}>
       <MyEventsCard />
+      <MyEventsCard />
     </div>
   );
 };
@@ -14,5 +15,6 @@ const HomePage = (props) => {
 export default styled(HomePage)`
   display: flex;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
 `;

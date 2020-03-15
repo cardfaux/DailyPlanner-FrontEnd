@@ -44,7 +44,7 @@ const getMyEvents = async (req, res, next) => {
 		return next(error);
 	}
 
-	if (!userWithEvents || userWithEvents.events.length === 0) {
+	if (!userWithEvents) {
 		return next(new HttpError('There Is No Events For That User.', 404));
 	}
 

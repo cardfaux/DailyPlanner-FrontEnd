@@ -57,6 +57,7 @@ const MyEventsCard = ({ className }) => {
 };
 
 export default styled(MyEventsCard)`
+  margin: 4rem;
   width: 30rem;
   text-align: center;
 
