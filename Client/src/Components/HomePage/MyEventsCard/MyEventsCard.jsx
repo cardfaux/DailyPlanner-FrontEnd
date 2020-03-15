@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { FaRegCalendarAlt } from 'react-icons/fa';
 
 import Card from '../../../Shared/Components/UIElements/Card/Card';
 import { useHttpClient } from '../../../Shared/Hooks/Http-Hook';
@@ -35,7 +36,9 @@ const MyEventsCard = ({ className }) => {
     <div className={className}>
       <Link to='/events'>
         <Card>
-          <h1>My Events: {eventCount}</h1>
+          <h1>
+            <FaRegCalendarAlt /> My Events: {eventCount}
+          </h1>
         </Card>
       </Link>
     </div>
@@ -59,5 +62,8 @@ export default styled(MyEventsCard)`
       background: ${Secondary};
       color: ${Primary};
     }
+  }
+  svg {
+    color: ${Primary};
   }
 `;
