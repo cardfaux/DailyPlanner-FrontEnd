@@ -7,6 +7,7 @@ import {
   Redirect
 } from 'react-router-dom';
 
+import HomePage from './Pages/HomePage/HomePage';
 import Events from './Pages/Events/Events';
 import Auth from './Pages/Authenticate/Auth';
 import MainNavigation from './Shared/Components/Navigation/MainNavigation/MainNavigation';
@@ -23,8 +24,9 @@ const App = () => {
   if (token) {
     routes = (
       <Switch>
+        <Route path='/' exact component={HomePage} />
         <Route path='/events' exact component={Events} />
-        <Redirect to='/events' />
+        <Redirect to='/' />
       </Switch>
     );
   } else {
