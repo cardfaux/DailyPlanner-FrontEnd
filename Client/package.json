@@ -6,9 +6,12 @@
   "scripts": {
     "clear-build-cache": "rm -rf .cache/ dist/",
     "dev": "parcel public/index.html --out-dir development -p 3000 --open",
+    "tsc": "tsc --watch --noEmit",
     "build": "parcel build public/index.html --out-dir build/release --public-url ./",
-    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
-    "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\""
+    "format": "prettier --write \"src/**/*.{js,jsx}\"",
+    "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
+    "tsPrettier": "prettier --write \"src/**/*.{ts,tsx,json,html,css,scss}\"",
+    "tsLint": "tslint --fix --project tsconfig.json \"src/**/*.{ts,tsx}\""
   },
   "keywords": [
     "React",
