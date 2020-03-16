@@ -5,7 +5,7 @@
   "description": "DailyPlanner",
   "scripts": {
     "clear-build-cache": "rm -rf .cache/ dist/",
-    "dev": "parcel public/index.html",
+    "dev": "parcel public/index.html -p 3000 --open",
     "format": "prettier --write \"src/**/*.{js,jsx}\"",
     "lint": "eslint \"src/**/*.{js,jsx}\""
   },
