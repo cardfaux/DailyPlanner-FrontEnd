@@ -52,7 +52,7 @@ const MyEventsCard = ({ className }) => {
             </Card>
           </Link>
           <footer className='footer'>
-            <Button to='notes'>ADD EVENT</Button>
+            <Button to='/add/event'>ADD EVENT</Button>
           </footer>
         </div>
       )}

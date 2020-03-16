@@ -9,6 +9,7 @@ import {
 
 import HomePage from './Pages/HomePage/HomePage';
 import Events from './Pages/Events/Events';
+import AddEvent from './Pages/AddEvent/AddEvent';
 import Auth from './Pages/Authenticate/Auth';
 import MainNavigation from './Shared/Components/Navigation/MainNavigation/MainNavigation';
 import { AuthContext } from './Shared/Context/auth-context';
@@ -26,6 +27,7 @@ const App = () => {
       <Switch>
         <Route path='/' exact component={HomePage} />
         <Route path='/events' exact component={Events} />
+        <Route path='/add/event' exact component={AddEvent} />
         <Redirect to='/' />
       </Switch>
     );
