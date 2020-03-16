@@ -6,6 +6,7 @@ import { FaEvernote } from 'react-icons/fa';
 import ErrorModal from '../../../Shared/Components/UIElements/ErrorModal/ErrorModal';
 import LoadingSpinner from '../../../Shared/Components/UIElements/LoadingSpinner/LoadingSpinner';
 import Card from '../../../Shared/Components/UIElements/Card/Card';
+import Button from '../../../Shared/Components/FormElements/Button/Button';
 import { useHttpClient } from '../../../Shared/Hooks/Http-Hook';
 import { AuthContext } from '../../../Shared/Context/auth-context';
 
@@ -44,12 +45,15 @@ const MyNotesCard = ({ className }) => {
       {!isLoading && (
         <div className={className}>
           <Link to='/notes'>
-            <Card>
+            <Card className='cardDiv'>
               <h1>
                 <FaEvernote /> My Notes: {noteCount}
               </h1>
             </Card>
           </Link>
+          <footer className='footer'>
+            <Button to='/add/note'>ADD NOTE</Button>
+          </footer>
         </div>
       )}
     </React.Fragment>
@@ -65,7 +69,7 @@ export default styled(MyNotesCard)`
     text-decoration: none;
     color: black;
   }
-  div {
+  .cardDiv {
     &:hover {
       background: ${Secondary};
       color: ${Primary};
@@ -73,5 +77,16 @@ export default styled(MyNotesCard)`
   }
   svg {
     color: ${Primary};
+  }
+  .footer {
+    border-radius: 6px;
+    background: ${Secondary};
+    &:hover {
+      background: ${Primary};
+    }
+
+    > div a {
+      margin-right: 0;
+    }
   }
 `;

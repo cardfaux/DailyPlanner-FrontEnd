@@ -10,6 +10,7 @@ import {
 import HomePage from './Pages/HomePage/HomePage';
 import Events from './Pages/Events/Events';
 import AddEvent from './Pages/AddEvent/AddEvent';
+import AddNote from './Pages/Notes/AddNote/AddNote';
 import Auth from './Pages/Authenticate/Auth';
 import MainNavigation from './Shared/Components/Navigation/MainNavigation/MainNavigation';
 import { AuthContext } from './Shared/Context/auth-context';
@@ -28,6 +29,7 @@ const App = () => {
         <Route path='/' exact component={HomePage} />
         <Route path='/events' exact component={Events} />
         <Route path='/add/event' exact component={AddEvent} />
+        <Route path='/add/note' exact component={AddNote} />
         <Redirect to='/' />
       </Switch>
     );

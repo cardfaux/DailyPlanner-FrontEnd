@@ -133,7 +133,7 @@ const AddEvent = (props) => {
             onInput={inputHandler}
           /> */}
         <Button type='submit' disabled={!formState.isValid}>
-          ADD Event
+          ADD EVENT
         </Button>
       </form>
       {/* </div> */}
