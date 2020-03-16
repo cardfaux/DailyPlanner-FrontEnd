@@ -2,7 +2,7 @@
 
 # dependencies
 /node_modules
-/Client/dist
+/Client/development
 /Client/node_modules
 /Client/.cache
 /Client/.env
