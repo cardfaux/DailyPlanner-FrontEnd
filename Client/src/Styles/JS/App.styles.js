@@ -1,4 +1,5 @@
 import styled, { createGlobalStyle } from 'styled-components';
+import { Secondary, Primary, Black, White } from '../../Styles/JS/Colors';
 
 export const Main = styled.main`
   margin-top: 5rem;
@@ -77,5 +78,21 @@ export const GlobalStyle = createGlobalStyle`
 
 .rbc-event-content {
 	text-align: center;
+	background: ${Primary};
+}
+
+.rbc-event {
+	text-align: center;
+	background-color: ${Primary};
+}
+
+.rbc-selected {
+	text-align: center;
+	background-color: ${Primary};
+}
+
+.rbc-event-allday {
+	text-align: center;
+	background: ${Primary};
 }
 `;
