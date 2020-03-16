@@ -74,4 +74,8 @@ export const GlobalStyle = createGlobalStyle`
 	margin-bottom: 1rem;
   text-align: right;
 }
+
+.rbc-event-content {
+	text-align: center;
+}
 `;
