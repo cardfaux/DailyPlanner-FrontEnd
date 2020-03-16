@@ -3,21 +3,21 @@ import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { useToasts } from 'react-toast-notifications';
 
-import Input from '../../Shared/Components/FormElements/Input/Input';
-import Button from '../../Shared/Components/FormElements/Button/Button';
-import ErrorModal from '../../Shared/Components/UIElements/ErrorModal/ErrorModal';
-import LoadingSpinner from '../../Shared/Components/UIElements/LoadingSpinner/LoadingSpinner';
+import Input from '../../../Shared/Components/FormElements/Input/Input';
+import Button from '../../../Shared/Components/FormElements/Button/Button';
+import ErrorModal from '../../../Shared/Components/UIElements/ErrorModal/ErrorModal';
+import LoadingSpinner from '../../../Shared/Components/UIElements/LoadingSpinner/LoadingSpinner';
 import {
   VALIDATOR_MAXLENGTH,
   VALIDATOR_MINLENGTH,
   VALIDATOR_REQUIRE
-} from '../../Utils/Validators';
-import { useForm } from '../../Shared/Hooks/Form-Hook';
-import { useHttpClient } from '../../Shared/Hooks/Http-Hook';
-import { AuthContext } from '../../Shared/Context/auth-context';
+} from '../../../Utils/Validators';
+import { useForm } from '../../../Shared/Hooks/Form-Hook';
+import { useHttpClient } from '../../../Shared/Hooks/Http-Hook';
+import { AuthContext } from '../../../Shared/Context/auth-context';
 
-import { White, Black, Secondary } from '../../Styles/JS/Colors';
-import { BoxShadow2 } from '../../Styles/JS/Shadows';
+import { White, Black, Secondary } from '../../../Styles/JS/Colors';
+import { BoxShadow2 } from '../../../Styles/JS/Shadows';
 
 const AddEvent = (props) => {
   const auth = useContext(AuthContext);

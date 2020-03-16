@@ -9,7 +9,7 @@ import {
 
 import HomePage from './Pages/HomePage/HomePage';
 import Events from './Pages/Events/Events';
-import AddEvent from './Pages/AddEvent/AddEvent';
+import AddEvent from './Pages/Events/AddEvent/AddEvent';
 import AddNote from './Pages/Notes/AddNote/AddNote';
 import Auth from './Pages/Authenticate/Auth';
 import MainNavigation from './Shared/Components/Navigation/MainNavigation/MainNavigation';
