@@ -18,7 +18,7 @@ interface StyledProps {
 }
 
 const MyEventsCard: React.FunctionComponent<StyledProps> = ({ className }) => {
-  const auth = useContext(AuthContext);
+  const auth = useContext<any>(AuthContext);
   const [eventCount, setEventCount] = useState();
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
