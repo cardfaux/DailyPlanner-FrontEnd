@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { FaEvernote } from 'react-icons/fa';
+// tslint:disable-next-line: no-submodule-imports
+import { FaRegCalendarAlt } from 'react-icons/fa';
 
 import ErrorModal from '../../../Shared/Components/UIElements/ErrorModal/ErrorModal';
 import LoadingSpinner from '../../../Shared/Components/UIElements/LoadingSpinner/LoadingSpinner';
@@ -12,26 +13,30 @@ import { AuthContext } from '../../../Shared/Context/auth-context';
 
 import { Secondary, Primary } from '../../../Styles/JS/Colors';
 
-const MyNotesCard = ({ className }) => {
+interface StyledProps {
+  className?: string;
+}
+
+const MyEventsCard: React.FunctionComponent<StyledProps> = ({ className }) => {
   const auth = useContext(AuthContext);
-  const [noteCount, setNoteCount] = useState();
+  const [eventCount, setEventCount] = useState();
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
   useEffect(() => {
-    const fetchNotes = async () => {
+    const fetchEvents = async () => {
       try {
         const responseData = await sendRequest(
-          `${process.env.REACT_APP_BACKEND_URL}/notes/me`,
+          `${process.env.REACT_APP_BACKEND_URL}/events/me`,
           'GET',
           null,
           {
             Authorization: 'Bearer ' + auth.token
           }
         );
-        setNoteCount(responseData.notes.length);
+        setEventCount(responseData.events.length);
       } catch (err) {}
     };
-    fetchNotes();
+    fetchEvents();
   }, [sendRequest]);
 
   return (
@@ -44,15 +49,15 @@ const MyNotesCard = ({ className }) => {
       )}
       {!isLoading && (
         <div className={className}>
-          <Link to='/notes'>
+          <Link to='/events'>
             <Card className='cardDiv'>
               <h1>
-                <FaEvernote /> My Notes: {noteCount}
+                <FaRegCalendarAlt /> My Events: {eventCount}
               </h1>
             </Card>
           </Link>
           <footer className='footer'>
-            <Button to='/add/note'>ADD NOTE</Button>
+            <Button to='/add/event'>ADD EVENT</Button>
           </footer>
         </div>
       )}
@@ -60,7 +65,7 @@ const MyNotesCard = ({ className }) => {
   );
 };
 
-export default styled(MyNotesCard)`
+export default styled(MyEventsCard)`
   margin: 4rem;
   width: 30rem;
   text-align: center;

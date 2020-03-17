@@ -3,14 +3,22 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
-    "module": "es2015",
+    "module": "esnext",
+    "resolveJsonModule": true,
     "jsx": "react",
+    "sourceMap": true,
+    "declaration": true,
+    "experimentalDecorators": true,
     "watch": true,
     "target": "es5",
-    "lib": ["es5", "es6", "dom"]
+    "lib": ["es5", "es6", "dom", "esnext", "dom.iterable"]
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "**/*.spec.ts"]
+  "exclude": ["node_modules", "**/*.spec.ts", "development", ".cache"]
 }
