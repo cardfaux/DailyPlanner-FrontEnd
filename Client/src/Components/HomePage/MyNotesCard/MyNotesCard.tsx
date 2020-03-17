@@ -18,7 +18,7 @@ interface StyledProps {
 }
 
 const MyNotesCard: React.FunctionComponent<StyledProps> = ({ className }) => {
-  const auth = useContext(AuthContext);
+  const auth = useContext<any>(AuthContext);
   const [noteCount, setNoteCount] = useState();
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
@@ -37,7 +37,7 @@ const MyNotesCard: React.FunctionComponent<StyledProps> = ({ className }) => {
       } catch (err) {}
     };
     fetchNotes();
-  }, [sendRequest]);
+  }, [sendRequest, setNoteCount]);
 
   return (
     <React.Fragment>

@@ -37,7 +37,7 @@ const MyEventsCard: React.FunctionComponent<StyledProps> = ({ className }) => {
       } catch (err) {}
     };
     fetchEvents();
-  }, [sendRequest]);
+  }, [sendRequest, setEventCount]);
 
   return (
     <React.Fragment>
