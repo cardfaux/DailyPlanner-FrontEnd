@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { ToastProvider } from 'react-toast-notifications';
 import {
   BrowserRouter as Router,
@@ -7,7 +7,7 @@ import {
   Redirect
 } from 'react-router-dom';
 
-import HomePage from './Pages/HomePage/HomePage';
+import { StyledHomePage as HomePage } from './Pages/HomePage/HomePage';
 import Events from './Pages/Events/Events';
 import AddEvent from './Pages/Events/AddEvent/AddEvent';
 import Notes from './Pages/Notes/Notes';
@@ -19,7 +19,7 @@ import { useAuth } from './Shared/Hooks/Auth-Hook';
 
 import { Main, GlobalStyle } from './Styles/JS/App.styles';
 
-const App = () => {
+const App: React.FunctionComponent = () => {
   const { token, login, logout, userId, userName } = useAuth();
 
   let routes;
