@@ -135,7 +135,7 @@ const EditNotes = (props) => {
           <Input
             id='description'
             element='textarea'
-            rows='20'
+            rows='10'
             label='Description'
             validators={[VALIDATOR_MAXLENGTH(800)]}
             errorText='Please enter a valid note (max. 800 characters).'
