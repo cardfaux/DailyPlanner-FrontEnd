@@ -12,7 +12,7 @@ const theme = {
   }
 };
 
-const AppRoot = document.getElementById('root') as HTMLElement;
+const AppRoot = document.getElementById('root');
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>

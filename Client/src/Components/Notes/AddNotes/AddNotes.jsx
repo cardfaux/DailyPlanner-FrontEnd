@@ -85,8 +85,8 @@ const AddNote = (props) => {
           element='textarea'
           label='Description'
           rows='10'
-          validators={[VALIDATOR_MAXLENGTH(100)]}
-          errorText='Please enter a valid description (less than 100 characters).'
+          validators={[VALIDATOR_MAXLENGTH(800)]}
+          errorText='Please enter a valid description (less than 800 characters).'
           onInput={inputHandler}
         />
         <Button type='submit' disabled={!formState.isValid}>
