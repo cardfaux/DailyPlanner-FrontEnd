@@ -13,6 +13,8 @@ router.use(checkAuth);
 
 router.get('/me', notesControllers.getMyNotes);
 
+router.get('/:nid', notesControllers.getNoteById);
+
 router.post(
 	'/',
 	[

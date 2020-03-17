@@ -53,6 +53,41 @@ const getMyNotes = async (req, res, next) => {
 	});
 };
 
+// @type -- GET
+// @path -- /api/notes/:nid
+// @desc -- path to get a note by its id
+// @aces -- PRIVATE
+const getNoteById = async (req, res, next) => {
+	const noteId = req.params.nid;
+
+	let note;
+	try {
+		note = await Note.findById(noteId);
+	} catch (err) {
+		const error = new HttpError(
+			'Something Went Wrong, Could Not Find Note',
+			500
+		);
+		return next(error);
+	}
+
+	if (!note || note.length === 0) {
+		const error = new HttpError(
+			'Could Not Find A Note For The Provided ID',
+			404
+		);
+		return next(error);
+	}
+
+	// Turns The Place Object Into A Normal JavaScript Object
+	// Getters: True Turns The Mongoose Model _id to id
+	res.json({
+		note: note.toObject({
+			getters: true
+		})
+	});
+};
+
 // @type -- POST
 // @path -- /api/notes
 // @desc -- path to create notes
@@ -219,6 +254,7 @@ const deleteNoteById = async (req, res, next) => {
 
 exports.getNotes = getNotes;
 exports.getMyNotes = getMyNotes;
+exports.getNoteById = getNoteById;
 exports.createANewNote = createANewNote;
 exports.updateNoteById = updateNoteById;
 exports.deleteNoteById = deleteNoteById;

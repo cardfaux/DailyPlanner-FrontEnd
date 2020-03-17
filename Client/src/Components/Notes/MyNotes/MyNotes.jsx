@@ -12,6 +12,7 @@ const MyNotes = (props) => {
           title={note.title}
           description={note.description}
           date={note.date}
+          id={note.id}
         />
       ))}
     </ul>

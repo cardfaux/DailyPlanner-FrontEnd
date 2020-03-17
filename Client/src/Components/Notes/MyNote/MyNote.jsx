@@ -26,7 +26,7 @@ const MyNote = (props) => {
 
         <Description>{props.description}</Description>
         <Footer>
-          <Button inverse to='/edit'>
+          <Button inverse to={`/note/edit/${props.id}`}>
             EDIT
           </Button>
           <Button to='/delete'>DELETE</Button>
