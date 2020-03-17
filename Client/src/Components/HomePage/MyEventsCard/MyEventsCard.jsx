@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { FaRegCalendarAlt, FaRegCalendarPlus } from 'react-icons/fa';
+import { FaRegCalendarAlt } from 'react-icons/fa';
 
 import ErrorModal from '../../../Shared/Components/UIElements/ErrorModal/ErrorModal';
 import LoadingSpinner from '../../../Shared/Components/UIElements/LoadingSpinner/LoadingSpinner';
