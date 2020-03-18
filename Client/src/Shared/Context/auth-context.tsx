@@ -5,8 +5,8 @@ interface AuthContextInterface {
   userId: boolean | undefined;
   userName: string | undefined;
   token: boolean | undefined;
-  login: () => void;
-  logout: () => void;
+  login: any;
+  logout: any;
 }
 
 export const AuthContext = createContext<AuthContextInterface | null>(null);

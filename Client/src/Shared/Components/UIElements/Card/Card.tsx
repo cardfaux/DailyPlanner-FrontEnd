@@ -5,6 +5,7 @@ import { StyledCard } from './Card.styles';
 interface CardProps {
   className?: string;
   style?: {};
+  children?: React.ReactNode;
 }
 
 const Card: React.FunctionComponent<CardProps> = (props) => {

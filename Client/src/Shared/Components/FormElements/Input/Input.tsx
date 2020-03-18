@@ -4,17 +4,32 @@ import styled from 'styled-components';
 import { validate } from '../../../../Utils/Validators';
 
 import {
-  White,
   OffWhite,
   Black,
   Primary,
-  Secondary,
   heildburgRed,
   LightRed
 } from '../../../../Styles/JS/Colors';
 
+type ActionType = {
+  type: 'CHANGE' | 'TOUCH';
+  inputId?: string | number;
+  isValid?: boolean;
+  value?: string | number;
+  inputs?: string;
+  validators?: object;
+  val?: string;
+};
+
+type StateType = {
+  inputs?: any;
+  value?: string;
+  isValid?: boolean;
+  isTouched?: boolean;
+};
+
 // Set up Reducer Outside Of The Component
-const inputReducer = (state, action) => {
+const inputReducer = (state: StateType, action: ActionType) => {
   switch (action.type) {
     // Fires On A Change Action
     case 'CHANGE':
@@ -35,7 +50,23 @@ const inputReducer = (state, action) => {
   }
 };
 
-const Input = (props) => {
+type InputProps = {
+  initialValue?: string;
+  initialValid?: boolean;
+  id?: any;
+  onInput?: (id: number, value: string, isValid: boolean) => any;
+  value?: string;
+  validators?: any;
+  element?: string;
+  type?: string;
+  placeholder?: string;
+  rows?: number;
+  className?: string;
+  label?: string;
+  errorText?: string;
+};
+
+const Input = (props: InputProps) => {
   // Pass In inputReducer, An Optional Object Of Initial State
   // Dispatch Is A Function Which We Can Call, To Dispatch Actions To The Reducer Function
   // The Dispatch Function Will Update The InputState And ReRrender The Component
@@ -59,7 +90,7 @@ const Input = (props) => {
   // Triggers When The User Enters Something
   // Call Dispatch, The Object is an Action Object
   // action.val and action.validators refers to this
-  const changeHandler = (event) => {
+  const changeHandler = (event: { target: { value: any } }) => {
     dispatch({
       type: 'CHANGE',
       val: event.target.value,
