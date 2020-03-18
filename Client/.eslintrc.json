@@ -21,7 +21,7 @@
     "react-hooks",
     "@typescript-eslint"
   ],
-  "parser": "@typescript-eslint/parser",
+  "parser": "babel-eslint",
   "rules": {
     "react/prop-types": 0,
     "react-hooks/rules-of-hooks": "error",
