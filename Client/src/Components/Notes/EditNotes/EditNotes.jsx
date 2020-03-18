@@ -144,7 +144,7 @@ const EditNotes = (props) => {
             initialValid={true}
           />
           <Button type='submit' disabled={!formState.isValid}>
-            UPDATE Note
+            UPDATE NOTE
           </Button>
         </form>
       )}

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { ThemeProvider } from 'styled-components';
+import ErrorBoundry from './Utils/ErrorBoundry';
 
 import App from './App';
 import './Styles/CSS/index.css';
@@ -17,7 +18,9 @@ const AppRoot = document.getElementById('root');
 ReactDOM.render(
   <ThemeProvider theme={theme}>
     <React.StrictMode>
-      <App />
+      <ErrorBoundry>
+        <App />
+      </ErrorBoundry>
     </React.StrictMode>
   </ThemeProvider>,
   AppRoot

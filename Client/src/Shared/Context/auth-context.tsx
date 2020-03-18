@@ -2,7 +2,7 @@ import { createContext } from 'react';
 
 interface AuthContextInterface {
   isLoggedIn: boolean;
-  userId: boolean;
+  userId: boolean | undefined;
   userName: string | undefined;
   token: boolean | undefined;
   login: () => void;
