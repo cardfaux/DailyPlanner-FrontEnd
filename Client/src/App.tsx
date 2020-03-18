@@ -57,7 +57,11 @@ const App: React.FunctionComponent = () => {
         logout: logout
       }}
     >
-      <ToastProvider placement='bottom-right'>
+      <ToastProvider
+        autoDismiss
+        autoDismissTimeout={4000}
+        placement='bottom-right'
+      >
         <Router>
           <MainNavigation />
           <Main>{routes}</Main>

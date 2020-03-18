@@ -6,7 +6,11 @@ import LoadingSpinner from '../../Shared/Components/UIElements/LoadingSpinner/Lo
 import { useHttpClient } from '../../Shared/Hooks/Http-Hook';
 import { AuthContext } from '../../Shared/Context/auth-context';
 
-const Notes = () => {
+interface Props {
+  notes: [any];
+}
+
+const Notes: React.FunctionComponent<Props> = () => {
   const auth = useContext(AuthContext);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [loadedNotes, setLoadedNotes] = useState([]);
@@ -29,6 +33,12 @@ const Notes = () => {
     fetchNotes();
   }, [sendRequest]);
 
+  const noteDeletedHandler = (deletedNoteId: number) => {
+    setLoadedNotes((prevNotes) =>
+      prevNotes.filter((note) => note.id !== deletedNoteId)
+    );
+  };
+
   return (
     <React.Fragment>
       <ErrorModal error={error} onClear={clearError} />
@@ -37,7 +47,9 @@ const Notes = () => {
           <LoadingSpinner />
         </div>
       )}
-      {!isLoading && loadedNotes && <MyNotes notes={loadedNotes} />}
+      {!isLoading && loadedNotes && (
+        <MyNotes notes={loadedNotes} onDeleteNote={noteDeletedHandler} />
+      )}
     </React.Fragment>
   );
 };

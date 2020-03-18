@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
 import styled from 'styled-components';
@@ -15,12 +15,22 @@ import { useHttpClient } from '../../../Shared/Hooks/Http-Hook';
 
 import { Primary, Secondary, OffWhite, White } from '../../../Styles/JS/Colors';
 
-const MyNote = (props) => {
+interface NoteProps {
+  id: number;
+  onDelete: (id: any) => void;
+  className?: string;
+  title: string;
+  description: string;
+  date: Date;
+}
+
+const MyNote: React.FunctionComponent<NoteProps> = (props) => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const auth = useContext(AuthContext);
   const noteId = `${props.id}`;
   const history = useHistory();
+  const { addToast } = useToasts();
 
   const showDeleteWarningHandler = () => {
     setShowConfirmModal(true);
@@ -45,12 +55,11 @@ const MyNote = (props) => {
       props.onDelete(props.id);
     } catch (err) {}
 
-    history.push('/');
+    history.push('/notes');
 
     addToast('Note Deleted Successfully', {
       appearance: 'success',
-      autoDismiss: true,
-      autoDismissTimeout: 3000
+      autoDismiss: true
     });
   };
 
@@ -61,7 +70,6 @@ const MyNote = (props) => {
         show={showConfirmModal}
         onCancel={cancelDeleteHandler}
         header='Are you sure?'
-        footerClass='place-item__modal-actions'
         footer={
           <React.Fragment>
             <Button inverse onClick={cancelDeleteHandler}>
