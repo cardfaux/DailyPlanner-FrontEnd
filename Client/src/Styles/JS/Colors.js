@@ -33,7 +33,7 @@ export const heildburgRed = '#a30015';
 // Button Colors
 export const buttonPrimary = '#ff0055';
 export const buttonLightPrimary = '#ff4382';
-export const buttonDanger = '#830000';
+export const buttonDanger = '#ce2029';
 export const buttonActiveDanger = '#f34343';
 export const buttonDisabledWhite = '#cccccc';
 export const buttonDisabledGray = '#979797';

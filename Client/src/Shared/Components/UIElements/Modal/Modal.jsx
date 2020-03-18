@@ -3,7 +3,12 @@ import ReactDOM from 'react-dom';
 import { CSSTransition } from 'react-transition-group';
 
 import Backdrop from '../Backdrop/Backdrop';
-import { ModalContainer, ModalHeader, ModalContent } from './Modal.styles';
+import {
+  ModalContainer,
+  ModalHeader,
+  ModalContent,
+  ModalFooter
+} from './Modal.styles';
 
 const ModalOverlay = (props) => {
   const content = (
@@ -19,7 +24,9 @@ const ModalOverlay = (props) => {
         <ModalContent className={`${props.contentClass}`}>
           {props.children}
         </ModalContent>
-        <footer className={`${props.footerClass}`}>{props.footer}</footer>
+        <ModalFooter className={`${props.footerClass}`}>
+          {props.footer}
+        </ModalFooter>
       </form>
     </ModalContainer>
   );
