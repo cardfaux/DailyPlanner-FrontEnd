@@ -1,5 +1,5 @@
 import styled, { createGlobalStyle } from 'styled-components';
-import { Secondary, Primary, Black, White } from '../../Styles/JS/Colors';
+import { Primary } from './Colors';
 
 export const Main = styled.main`
   margin-top: 5rem;
