@@ -15,10 +15,14 @@ import { useForm } from '../../../Shared/Hooks/Form-Hook';
 import { useHttpClient } from '../../../Shared/Hooks/Http-Hook';
 import { AuthContext } from '../../../Shared/Context/auth-context';
 
-import { White, Black, Secondary } from '../../../Styles/JS/Colors';
+import { White } from '../../../Styles/JS/Colors';
 import { BoxShadow2 } from '../../../Styles/JS/Shadows';
 
-const AddNote = (props) => {
+interface NotesProps {
+  className?: string;
+}
+
+const AddNote: React.FunctionComponent<NotesProps> = (props) => {
   const auth = useContext(AuthContext);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
@@ -40,7 +44,7 @@ const AddNote = (props) => {
 
   const history = useHistory();
 
-  const noteSubmitHandler = async (event) => {
+  const noteSubmitHandler = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
 
     try {
@@ -57,9 +61,7 @@ const AddNote = (props) => {
         }
       );
       addToast('Note Added Successfully', {
-        appearance: 'success',
-        autoDismiss: true,
-        autoDismissTimeout: 3000
+        appearance: 'success'
       });
       history.push('/');
     } catch (err) {}
