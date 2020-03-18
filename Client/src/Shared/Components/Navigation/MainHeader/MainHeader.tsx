@@ -3,7 +3,11 @@ import { useSpring, animated } from 'react-spring';
 
 import { MainHead } from './MainHeader.styles';
 
-const MainHeader = (props) => {
+interface HeaderProps {
+  children: React.ReactNode;
+}
+
+const MainHeader: React.FunctionComponent<HeaderProps> = (props) => {
   const fade = useSpring({
     from: {
       opacity: 0

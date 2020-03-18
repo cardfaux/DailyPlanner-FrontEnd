@@ -8,7 +8,7 @@ import SideDrawer from '../SideDrawer/SideDrawer';
 import Backdrop from '../../UIElements/Backdrop/Backdrop';
 import { Hamburger, Title, Nav, DrawerNav } from './MainNavigation.styles';
 
-const MainNavigation = () => {
+const MainNavigation: React.FunctionComponent = () => {
   const fade = useSpring({
     from: {
       opacity: 0
@@ -18,7 +18,7 @@ const MainNavigation = () => {
     }
   });
 
-  const [drawerIsOpen, setDrawerIsOpen] = useState(false);
+  const [drawerIsOpen, setDrawerIsOpen] = useState<boolean>(false);
 
   const openDrawerHandler = () => {
     setDrawerIsOpen(true);
