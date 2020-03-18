@@ -1,38 +1,108 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useToasts } from 'react-toast-notifications';
 import styled from 'styled-components';
 import Moment from 'react-moment';
 import moment from 'moment';
 
 import Card from '../../../Shared/Components/UIElements/Card/Card';
+import LoadingSpinner from '../../../Shared/Components/UIElements/LoadingSpinner/LoadingSpinner';
+import ErrorModal from '../../../Shared/Components/UIElements/ErrorModal/ErrorModal';
+import Modal from '../../../Shared/Components/UIElements/Modal/Modal';
 import Button from '../../../Shared/Components/FormElements/Button/Button';
 import { AuthContext } from '../../../Shared/Context/auth-context';
+import { useHttpClient } from '../../../Shared/Hooks/Http-Hook';
 
 import { Primary, Secondary, OffWhite, White } from '../../../Styles/JS/Colors';
 
 const MyNote = (props) => {
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
   const auth = useContext(AuthContext);
-  return (
-    <li className={props.className}>
-      <StyledCard>
-        <div className='header'>
-          <header>
-            <h1>{props.title}</h1>
-            <h3>{auth.userName}</h3>
-            <h4>
-              <Moment format='YYYY/MM/DD'>{moment.utc(props.date)}</Moment>
-            </h4>
-          </header>
-        </div>
+  const noteId = `${props.id}`;
+  const history = useHistory();
 
-        <Description>{props.description}</Description>
-        <Footer>
-          <Button inverse to={`/note/edit/${props.id}`}>
-            EDIT
-          </Button>
-          <Button to='/delete'>DELETE</Button>
-        </Footer>
-      </StyledCard>
-    </li>
+  const showDeleteWarningHandler = () => {
+    setShowConfirmModal(true);
+  };
+
+  const cancelDeleteHandler = () => {
+    setShowConfirmModal(false);
+  };
+
+  const confirmDeleteHandler = async () => {
+    setShowConfirmModal(false);
+
+    try {
+      await sendRequest(
+        `${process.env.REACT_APP_BACKEND_URL}/notes/${noteId}`,
+        'DELETE',
+        null,
+        {
+          Authorization: 'Bearer ' + auth.token
+        }
+      );
+      props.onDelete(props.id);
+    } catch (err) {}
+
+    history.push('/');
+
+    addToast('Note Deleted Successfully', {
+      appearance: 'success',
+      autoDismiss: true,
+      autoDismissTimeout: 3000
+    });
+  };
+
+  return (
+    <React.Fragment>
+      <ErrorModal error={error} onClear={clearError} />
+      <Modal
+        show={showConfirmModal}
+        onCancel={cancelDeleteHandler}
+        header='Are you sure?'
+        footerClass='place-item__modal-actions'
+        footer={
+          <React.Fragment>
+            <Button inverse onClick={cancelDeleteHandler}>
+              CANCEL
+            </Button>
+            <Button danger onClick={confirmDeleteHandler}>
+              DELETE
+            </Button>
+          </React.Fragment>
+        }
+      >
+        <p>
+          Do you want to proceed and delete this note? Please note that it can't
+          be undone thereafter.
+        </p>
+      </Modal>
+      <li className={props.className}>
+        <StyledCard>
+          {isLoading && <LoadingSpinner asOverlay />}
+          <div className='header'>
+            <header>
+              <h1>{props.title}</h1>
+              <h3>{auth.userName}</h3>
+              <h4>
+                <Moment format='YYYY/MM/DD'>{moment.utc(props.date)}</Moment>
+              </h4>
+            </header>
+          </div>
+
+          <Description>{props.description}</Description>
+          <Footer>
+            <Button inverse to={`/note/edit/${props.id}`}>
+              EDIT
+            </Button>
+            <Button danger onClick={showDeleteWarningHandler}>
+              DELETE
+            </Button>
+          </Footer>
+        </StyledCard>
+      </li>
+    </React.Fragment>
   );
 };
 
