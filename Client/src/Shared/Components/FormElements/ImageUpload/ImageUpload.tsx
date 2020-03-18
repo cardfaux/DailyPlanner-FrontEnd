@@ -3,12 +3,21 @@ import React, { useRef, useState, useEffect } from 'react';
 
 import Button from '../Button/Button';
 
-const ImageUpload = (props) => {
+interface Props {
+  className?: string;
+  onInput?: any;
+  id?: string;
+  center?: string;
+  errorText?: string;
+  onChange?: any;
+}
+
+const ImageUpload: React.FunctionComponent<Props> = (props) => {
   const [file, setFile] = useState();
-  const [previewUrl, setPreviewUrl] = useState();
+  const [previewUrl, setPreviewUrl] = useState<string | ArrayBuffer | any>();
   const [isValid, setIsValid] = useState(false);
 
-  const filePickerRef = useRef();
+  const filePickerRef = useRef<any | undefined>();
 
   useEffect(() => {
     if (!file) {
@@ -21,7 +30,9 @@ const ImageUpload = (props) => {
     fileReader.readAsDataURL(file);
   }, [file]);
 
-  const pickedHandler = (event) => {
+  const pickedHandler = (event: {
+    target: { files: string | any[] | any };
+  }) => {
     let pickedFile;
     let fileIsValid = isValid;
     if (event.target.files && event.target.files.length === 1) {

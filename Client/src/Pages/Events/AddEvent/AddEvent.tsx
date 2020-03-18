@@ -9,23 +9,26 @@ import ErrorModal from '../../../Shared/Components/UIElements/ErrorModal/ErrorMo
 import LoadingSpinner from '../../../Shared/Components/UIElements/LoadingSpinner/LoadingSpinner';
 import {
   VALIDATOR_MAXLENGTH,
-  VALIDATOR_MINLENGTH,
   VALIDATOR_REQUIRE
 } from '../../../Utils/Validators';
 import { useForm } from '../../../Shared/Hooks/Form-Hook';
 import { useHttpClient } from '../../../Shared/Hooks/Http-Hook';
 import { AuthContext } from '../../../Shared/Context/auth-context';
 
-import { White, Black, Secondary } from '../../../Styles/JS/Colors';
+import { White } from '../../../Styles/JS/Colors';
 import { BoxShadow2 } from '../../../Styles/JS/Shadows';
 
-const AddEvent = (props) => {
+interface AddEventProps {
+  className?: string;
+}
+
+const AddEvent: React.FunctionComponent<AddEventProps> = (props) => {
   const auth = useContext(AuthContext);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
   const { addToast } = useToasts();
 
-  const [formState, inputHandler, setFormData] = useForm(
+  const [formState, inputHandler] = useForm(
     {
       title: {
         value: '',
@@ -53,7 +56,7 @@ const AddEvent = (props) => {
 
   const history = useHistory();
 
-  const eventSubmitHandler = async (event) => {
+  const eventSubmitHandler = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
 
     try {
@@ -73,9 +76,7 @@ const AddEvent = (props) => {
         }
       );
       addToast('Event Added Successfully', {
-        appearance: 'success',
-        autoDismiss: true,
-        autoDismissTimeout: 3000
+        appearance: 'success'
       });
       history.push('/');
     } catch (err) {}

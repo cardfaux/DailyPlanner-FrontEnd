@@ -60,7 +60,7 @@ type InputProps = {
   element?: string;
   type?: string;
   placeholder?: string;
-  rows?: number;
+  rows?: any;
   className?: string;
   label?: string;
   errorText?: string;

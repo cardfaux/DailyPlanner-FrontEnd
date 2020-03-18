@@ -67,13 +67,16 @@ export const useForm = (
     });
   }, []);
 
-  const setFormData = useCallback((inputData, formValidity) => {
-    dispatch({
-      type: 'SET_DATA',
-      inputs: inputData,
-      formIsValid: formValidity
-    });
-  }, []);
+  const setFormData: any = useCallback(
+    (inputData: string, formValidity: boolean) => {
+      dispatch({
+        type: 'SET_DATA',
+        inputs: inputData,
+        formIsValid: formValidity
+      });
+    },
+    []
+  );
 
   return [formState, inputHandler, setFormData];
 };

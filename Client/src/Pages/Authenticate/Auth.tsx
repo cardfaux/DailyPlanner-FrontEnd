@@ -18,9 +18,13 @@ import { useHttpClient } from '../../Shared/Hooks/Http-Hook';
 import { AuthContext } from '../../Shared/Context/auth-context';
 import { White, Black, Secondary } from '../../Styles/JS/Colors';
 
-const Auth = ({ className }) => {
+interface AuthProps {
+  className?: string;
+}
+
+const Auth: React.FunctionComponent<AuthProps> = ({ className }) => {
   const auth = useContext(AuthContext);
-  const [isLoginMode, setIsLoginMode] = useState(true);
+  const [isLoginMode, setIsLoginMode] = useState<boolean>(true);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
   const { addToast } = useToasts();
@@ -68,7 +72,7 @@ const Auth = ({ className }) => {
     setIsLoginMode((prevMode) => !prevMode);
   };
 
-  const authSubmitHandler = async (event) => {
+  const authSubmitHandler = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
 
     if (isLoginMode) {
@@ -90,9 +94,7 @@ const Auth = ({ className }) => {
           responseData.token
         );
         addToast('Authenticated Successfully!', {
-          appearance: 'success',
-          autoDismiss: true,
-          autoDismissTimeout: 4000
+          appearance: 'success'
         });
       } catch (err) {}
     } else {
@@ -115,9 +117,7 @@ const Auth = ({ className }) => {
         );
 
         addToast('Authenticated Successfully!', {
-          appearance: 'success',
-          autoDismiss: true,
-          autoDismissTimeout: 4000
+          appearance: 'success'
         });
       } catch (err) {}
     }
