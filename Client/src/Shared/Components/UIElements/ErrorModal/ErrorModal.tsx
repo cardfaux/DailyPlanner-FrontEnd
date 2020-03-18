@@ -3,7 +3,12 @@ import React from 'react';
 import Modal from '../Modal/Modal';
 import Button from '../../FormElements/Button/Button';
 
-const ErrorModal = (props) => {
+interface ErrorProps {
+  onClear?: () => void;
+  error?: boolean;
+}
+
+const ErrorModal: React.FunctionComponent<ErrorProps> = (props) => {
   return (
     <Modal
       onCancel={props.onClear}

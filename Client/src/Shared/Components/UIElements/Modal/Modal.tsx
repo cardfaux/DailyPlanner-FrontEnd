@@ -10,7 +10,18 @@ import {
   ModalFooter
 } from './Modal.styles';
 
-const ModalOverlay = (props) => {
+interface OverlayProps {
+  className?: string;
+  style?: {};
+  headerClass?: string;
+  header?: any;
+  onSubmit?: () => void;
+  contentClass?: string;
+  footerClass?: string;
+  footer?: any;
+}
+
+const ModalOverlay: React.FunctionComponent<OverlayProps> = (props) => {
   const content = (
     <ModalContainer className={`${props.className}`} style={props.style}>
       <ModalHeader className={`${props.headerClass}`}>
@@ -33,7 +44,12 @@ const ModalOverlay = (props) => {
   return ReactDOM.createPortal(content, document.getElementById('modal-hook'));
 };
 
-const Modal = (props) => {
+interface Modal {
+  show?: boolean;
+  onCancel?: () => void;
+}
+
+const Modal: React.FunctionComponent<Modal> = (props) => {
   return (
     <React.Fragment>
       {props.show && <Backdrop onClick={props.onCancel} />}

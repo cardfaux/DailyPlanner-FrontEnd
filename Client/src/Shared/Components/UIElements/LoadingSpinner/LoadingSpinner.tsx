@@ -3,7 +3,12 @@ import styled from 'styled-components';
 
 import { Primary, Secondary } from '../../../../Styles/JS/Colors';
 
-const LoadingSpinner = (props) => {
+interface SpinnerProps {
+  className?: string;
+  asOverlay?: boolean;
+}
+
+const LoadingSpinner: React.FunctionComponent<SpinnerProps> = (props) => {
   return (
     <div className={props.className}>
       <div className={`${props.asOverlay && 'loading-spinner__overlay'}`}>
