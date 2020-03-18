@@ -15,7 +15,12 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 const localizer = momentLocalizer(moment);
 const DragAndDropCalendar = withDragAndDrop(Calendar);
 
-const MainCalendar = () => {
+interface Props {
+  className?: string;
+  style?: any;
+}
+
+const MainCalendar: React.FunctionComponent<Props> = () => {
   const auth = useContext(AuthContext);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [events, setEvents] = useState([]); // Set To Empty Array Since The Events Is An Array Of Objects
@@ -46,14 +51,13 @@ const MainCalendar = () => {
         </div>
       )}
       {!isLoading && (
-        <div className='App'>
+        <div style={{ height: '100vh' }} className='App'>
           <DragAndDropCalendar
             defaultDate={new Date()}
             defaultView='month'
             events={events}
             localizer={localizer}
             resizable
-            style={{ height: '100vh' }}
           />
         </div>
       )}
