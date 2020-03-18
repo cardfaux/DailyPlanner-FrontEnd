@@ -3,7 +3,13 @@ import ReactDOM from 'react-dom';
 
 import { Aside, CSSAnimation } from './SideDrawer.styles';
 
-const SideDrawer = (props) => {
+interface DrawerProps {
+  show: any;
+  onClick: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+  children: React.ReactNode;
+}
+
+const SideDrawer: React.FunctionComponent<DrawerProps> = (props) => {
   const content = (
     <CSSAnimation
       in={props.show}

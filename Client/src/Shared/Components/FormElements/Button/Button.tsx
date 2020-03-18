@@ -21,6 +21,7 @@ interface ButtonProps {
   type?: 'submit' | 'reset' | 'button';
   onClick?: () => any;
   disabled?: boolean;
+  children?: React.ReactNode;
 }
 
 const Button: React.FunctionComponent<ButtonProps> = (props) => {
