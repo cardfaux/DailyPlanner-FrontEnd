@@ -11,7 +11,20 @@ import {
   buttonDisabledGray
 } from '../../../../Styles/JS/Colors';
 
-const Button = (props) => {
+interface ButtonProps {
+  className?: string;
+  size: string;
+  inverse: boolean;
+  danger: boolean;
+  href: string;
+  to: string;
+  exact?: boolean;
+  type: 'submit' | 'reset' | 'button';
+  onClick: () => any;
+  disabled: boolean;
+}
+
+const Button: React.FunctionComponent<ButtonProps> = (props) => {
   if (props.href) {
     return (
       <div className={props.className}>
@@ -31,7 +44,7 @@ const Button = (props) => {
       <div className={props.className}>
         <Link
           to={props.to}
-          exact={props.exact}
+          //exact={props.exact}
           className={`button button--${props.size ||
             'default'} ${props.inverse && 'button--inverse'} ${props.danger &&
             'button--danger'}`}

@@ -40,8 +40,8 @@ export default [
   {
     id: uuidv1(),
     title: 'Conference',
-    start: new Date(2020, 2, 11),
-    end: new Date(2020, 2, 13),
+    start: new Date(2020, 3, 19),
+    end: new Date(2020, 3, 20),
     desc: 'Big conference for important people'
   },
   {
