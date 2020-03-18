@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 
-class ErrorBoundry extends Component {
-  constructor(props) {
+type ErrorState = {
+  hasError: boolean;
+};
+
+class ErrorBoundry extends Component<{}, ErrorState> {
+  constructor(props: any) {
     super(props);
     this.state = {
       hasError: false
     };
   }
 
-  componentDidCatch(error, info) {
+  componentDidCatch(_error: any, _info: any) {
     this.setState({ hasError: true });
   }
 
