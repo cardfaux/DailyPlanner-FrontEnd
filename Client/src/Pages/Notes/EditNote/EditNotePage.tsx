@@ -1,7 +1,7 @@
 import React from 'react';
 import EditNote from '../../../Components/Notes/EditNotes/EditNotes';
 
-const EditNotePage = (props) => {
+const EditNotePage: React.FunctionComponent = () => {
   return <EditNote />;
 };
 

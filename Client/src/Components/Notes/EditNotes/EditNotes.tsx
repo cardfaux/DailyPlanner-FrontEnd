@@ -19,12 +19,16 @@ import { useForm } from '../../../Shared/Hooks/Form-Hook';
 import { White } from '../../../Styles/JS/Colors';
 import { BoxShadow2 } from '../../../Styles/JS/Shadows';
 
-const EditNotes = (props) => {
+interface EditProps {
+  className?: string;
+}
+
+const EditNotes: React.FunctionComponent<EditProps> = (props) => {
   const auth = useContext(AuthContext);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
-  const [loadedNote, setLoadedNote] = useState();
+  const [loadedNote, setLoadedNote] = useState<object | null | any>();
 
-  const noteId = useParams().noteId;
+  let { noteId } = useParams();
   const history = useHistory();
 
   const { addToast } = useToasts();
@@ -73,7 +77,9 @@ const EditNotes = (props) => {
     fetchNote();
   }, [sendRequest, noteId, setFormData]);
 
-  const noteUpdateSubmitHandler = async (event) => {
+  const noteUpdateSubmitHandler = async (event: {
+    preventDefault: () => void;
+  }) => {
     event.preventDefault();
     try {
       await sendRequest(
@@ -92,9 +98,7 @@ const EditNotes = (props) => {
     } catch (err) {}
 
     addToast('Note Updated Successfully', {
-      appearance: 'success',
-      autoDismiss: true,
-      autoDismissTimeout: 3000
+      appearance: 'success'
     });
   };
 
