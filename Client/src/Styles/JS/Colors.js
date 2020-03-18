@@ -29,6 +29,7 @@ export const redPurple = '#e40066';
 export const vividRasberry = '#ff006e';
 export const fireBrick = '#bf211e';
 export const heildburgRed = '#a30015';
+export const LightRed = '#ffc6c4';
 
 // Button Colors
 export const buttonPrimary = '#ff0055';

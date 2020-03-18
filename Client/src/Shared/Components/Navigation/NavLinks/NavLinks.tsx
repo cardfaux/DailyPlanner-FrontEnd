@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../../../Context/auth-context';
 import { Navigation, ListItem, Button } from './NavLinks.styles';
 
-const NavLinks = (props) => {
+const NavLinks: React.FunctionComponent = () => {
   const auth = useContext(AuthContext);
 
   return (

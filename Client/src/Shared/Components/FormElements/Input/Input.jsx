@@ -1,7 +1,17 @@
 import React, { useReducer, useEffect } from 'react';
+import styled from 'styled-components';
 
 import { validate } from '../../../../Utils/Validators';
-import './Input.css';
+
+import {
+  White,
+  OffWhite,
+  Black,
+  Primary,
+  Secondary,
+  heildburgRed,
+  LightRed
+} from '../../../../Styles/JS/Colors';
 
 // Set up Reducer Outside Of The Component
 const inputReducer = (state, action) => {
@@ -91,18 +101,64 @@ const Input = (props) => {
 
   return (
     // The Div To The Label And Input
-    <div
-      className={`form-control ${!inputState.isValid &&
-        inputState.isTouched &&
-        'form-control--invalid'}`}
-    >
-      {/* The Element Is For The Input Or Text Area Configured Above */}
-      <label htmlFor={props.id}>{props.label}</label>
-      {element}
-      {/* If The Input is Invalid We Will Get Error Text */}
-      {!inputState.isValid && inputState.isTouched && <p>{props.errorText}</p>}
+    <div className={props.className}>
+      <div
+        className={`form-control ${!inputState.isValid &&
+          inputState.isTouched &&
+          'form-control--invalid'}`}
+      >
+        {/* The Element Is For The Input Or Text Area Configured Above */}
+        <label htmlFor={props.id}>{props.label}</label>
+        {element}
+        {/* If The Input is Invalid We Will Get Error Text */}
+        {!inputState.isValid && inputState.isTouched && (
+          <p>{props.errorText}</p>
+        )}
+      </div>
     </div>
   );
 };
 
-export default Input;
+export default styled(Input)`
+  .form-control {
+    margin: 1rem 0;
+  }
+
+  .form-control label,
+  .form-control input,
+  .form-control textarea {
+    display: block;
+  }
+
+  .form-control label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  .form-control input,
+  .form-control textarea {
+    width: 100%;
+    font: inherit;
+    border: 1px solid ${Black};
+    background: ${OffWhite};
+    padding: 0.15rem 0.25rem;
+  }
+
+  .form-control input:focus,
+  .form-control textarea:focus {
+    outline: none;
+    background: ${OffWhite};
+    border-color: ${Primary};
+  }
+
+  .form-control--invalid label,
+  .form-control--invalid p {
+    color: ${heildburgRed};
+  }
+
+  .form-control--invalid input,
+  .form-control--invalid textarea {
+    border-color: ${heildburgRed};
+    background: ${LightRed};
+  }
+`;
