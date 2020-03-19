@@ -6,6 +6,9 @@
 	"scripts": {
 		"start": "node server",
 		"server": "nodemon server",
+		"tscBuild": "tsc",
+		"tscStart": "ts-node-dev --respawn server.ts",
+		"tscNodemon": "nodemon --exec ts-node server.ts",
 		"client": "npm run dev --prefix Client",
 		"clientClear": "npm run clear-build-cache --prefix Client",
 		"dev": "concurrently \"npm run server\" \"npm run client\"",
@@ -27,13 +30,14 @@
 		"express": "^4.17.1",
 		"express-validator": "^6.4.0",
 		"jsonwebtoken": "^8.5.1",
-		"mongoose": "^5.9.4",
+		"mongoose": "^5.9.5",
 		"mongoose-unique-validator": "^2.0.3",
 		"multer": "^1.4.2",
 		"uuid": "^7.0.2"
 	},
 	"devDependencies": {
 		"concurrently": "^5.1.0",
-		"nodemon": "^2.0.2"
+		"nodemon": "^2.0.2",
+		"typescript": "^3.8.3"
 	}
 }
