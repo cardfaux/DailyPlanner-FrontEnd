@@ -183,7 +183,7 @@ const Auth: React.FunctionComponent<AuthProps> = ({ className }) => {
 export default styled(Auth)`
   color: ${White};
   width: 90%;
-  max-width: 25rem;
+  width: 100vw;
   margin: 7rem auto;
   text-align: center;
 
@@ -200,5 +200,9 @@ export default styled(Auth)`
   }
   hr {
     color: ${Secondary};
+  }
+  /* If screen size is more than 768px wide, set the width to 11vw */
+  @media (min-width: 768px) {
+    max-width: 27rem;
   }
 `;

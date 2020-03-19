@@ -7,7 +7,7 @@ interface Props {
   className?: string;
   onInput?: any;
   id?: string;
-  center?: string;
+  center?: boolean;
   errorText?: string;
   onChange?: any;
 }
